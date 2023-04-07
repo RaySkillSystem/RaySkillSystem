@@ -1,4 +1,4 @@
-package top.maplex.rayskillsystem.skillbar
+package top.maplex.rayskillsystem.caster
 
 import github.saukiya.sxitem.event.SXItemSpawnEvent
 import org.bukkit.Bukkit
