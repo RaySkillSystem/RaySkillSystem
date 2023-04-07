@@ -7,7 +7,6 @@ import top.maplex.rayskillsystem.utils.getString
 
 object Listener {
 
-    @SubscribeEvent
     fun onLunch(event: DanFurnaceLunchEvent) {
         val player = event.player
         if (!event.interEvent.isRightClick()) {

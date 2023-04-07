@@ -7,11 +7,14 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.util.Vector
 import taboolib.common.LifeCycle
 import taboolib.common.platform.Awake
+import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
 import taboolib.platform.util.buildItem
 import taboolib.platform.util.toProxyLocation
 import top.maplex.panlingcore.common.core.PlayerManager
 import top.maplex.panlingcore.common.core.player.attribute.AttributeEnum
+import top.maplex.rayskillsystem.caster.dan.AbstractDanCast
+import top.maplex.rayskillsystem.caster.dan.DanFurnaceLunchEvent
 import top.maplex.rayskillsystem.skill.AbstractSkill
 import top.maplex.rayskillsystem.skill.tools.Team
 import top.maplex.rayskillsystem.skill.tools.mechanism.damage.damage
@@ -19,7 +22,7 @@ import top.maplex.rayskillsystem.skill.tools.mechanism.effect.spawnColor
 import top.maplex.rayskillsystem.skill.tools.target.TargetSingle
 
 
-object SkillJin : AbstractSkill, YuanSu {
+object SkillJin : AbstractSkill, YuanSu, AbstractDanCast {
 
     @Awake(LifeCycle.ENABLE)
     fun onEnable() {
@@ -31,6 +34,13 @@ object SkillJin : AbstractSkill, YuanSu {
     override val type: String = "炼丹师"
 
     override val cooldown: Long = 50
+
+    override val itemId: String = "panling:metal"
+
+    @SubscribeEvent
+    fun onLunch(event: DanFurnaceLunchEvent) {
+        lunch(this, event)
+    }
 
     override fun showItem(player: Player, level: Int): ItemStack {
         return buildItem(Material.PAPER) {
