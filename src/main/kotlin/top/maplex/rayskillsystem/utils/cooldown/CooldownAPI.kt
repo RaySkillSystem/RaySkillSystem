@@ -7,6 +7,7 @@ object CooldownAPI {
 
     val map = ConcurrentHashMap<String, Long>()
 
+    //获取剩余时间 s
     fun getTime(player: Player, key: String): Int {
         val mapKey = "${player.uniqueId}__${key}"
         val get = map.getOrDefault(mapKey, 0L)
@@ -16,6 +17,8 @@ object CooldownAPI {
         val nowTime = System.currentTimeMillis()
         return ((get - nowTime) / 1000).toInt()
     }
+
+    // 剩余时间 ms
     fun getTimeLong(player: Player, key: String): Long {
         val mapKey = "${player.uniqueId}__${key}"
         val get = map.getOrDefault(mapKey, 0L)
@@ -28,6 +31,10 @@ object CooldownAPI {
 
     //true 可以执行
     fun check(player: Player, key: String, tick: Long): Boolean {
+        return check(player, key)
+    }
+
+    fun check(player: Player, key: String): Boolean {
         val mapKey = "${player.uniqueId}__${key}"
         val get = map.getOrDefault(mapKey, -1L)
         val nowTime = System.currentTimeMillis()

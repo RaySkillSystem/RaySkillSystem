@@ -18,4 +18,5 @@ object BuffLuanSaQingHe : AbstractBuff {
     override val icon: Material = Material.APPLE
 
 
+
 }

@@ -9,10 +9,11 @@ import taboolib.common.LifeCycle
 import taboolib.common.platform.Awake
 import taboolib.platform.util.buildItem
 import top.maplex.rayskillsystem.skill.AbstractSkill
+import top.maplex.rayskillsystem.skill.impl.dan.def.YuanSu
 import top.maplex.rayskillsystem.skill.tools.buff.BuffManager
 import top.maplex.rayskillsystem.skill.tools.buff.impl.BuffBiBoXing
 
-object SkillBiBoXing : AbstractSkill {
+object SkillBiBoXing : AbstractSkill, YuanSu {
 
     @Awake(LifeCycle.ENABLE)
     fun onEnable() {
@@ -33,13 +34,7 @@ object SkillBiBoXing : AbstractSkill {
     }
 
     override fun onCondition(player: Player, level: Int): Boolean {
-        val has = AbolethAPI.get(player.uniqueId, "元素-panling:water", "0").toDoubleOrNull() ?: 0.0
-        if (has < 3.0) {
-            player.sendMessage("§c元素不足 (${has})")
-            return false
-        }
-        AbolethAPI.edit(player.uniqueId, "元素-panling:water", AbolethAction.SUBTRACT, 3.0)
-        return true
+        return take(player, "water", 3)
     }
 
     override fun onRun(player: Player, level: Int): Boolean {

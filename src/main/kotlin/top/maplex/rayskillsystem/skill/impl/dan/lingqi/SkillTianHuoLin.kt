@@ -15,6 +15,7 @@ import taboolib.platform.util.toProxyLocation
 import top.maplex.panlingcore.common.core.PlayerManager
 import top.maplex.panlingcore.common.core.player.attribute.AttributeEnum
 import top.maplex.rayskillsystem.skill.AbstractSkill
+import top.maplex.rayskillsystem.skill.impl.dan.def.YuanSu
 import top.maplex.rayskillsystem.skill.tools.Team
 import top.maplex.rayskillsystem.skill.tools.buff.BuffManager
 import top.maplex.rayskillsystem.skill.tools.buff.impl.BuffFire
@@ -24,7 +25,7 @@ import top.maplex.rayskillsystem.skill.tools.mechanism.effect.spawnColor
 import top.maplex.rayskillsystem.skill.tools.target.TargetRange
 import top.maplex.rayskillsystem.skill.tools.target.TargetSingle
 
-object SkillTianHuoLin : AbstractSkill {
+object SkillTianHuoLin : AbstractSkill, YuanSu {
 
     @Awake(LifeCycle.ENABLE)
     fun onEnable() {
@@ -45,13 +46,7 @@ object SkillTianHuoLin : AbstractSkill {
     }
 
     override fun onCondition(player: Player, level: Int): Boolean {
-        val has = AbolethAPI.get(player.uniqueId, "元素-panling:fire", "0").toDoubleOrNull() ?: 0.0
-        if (has < 3.0) {
-            player.sendMessage("§c元素不足 (${has})")
-            return false
-        }
-        AbolethAPI.edit(player.uniqueId, "元素-panling:fire", AbolethAction.SUBTRACT, 3.0)
-        return true
+        return take(player, "fire", 3)
     }
 
     override fun onRun(player: Player, level: Int): Boolean {
