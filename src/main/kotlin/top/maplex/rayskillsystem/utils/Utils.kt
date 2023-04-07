@@ -15,6 +15,7 @@ infix fun EntityType.isIn(string: String): Boolean {
     }
 }
 
+//Int - > 罗马 IV XXI
 fun intToRoman(numb: Int): String {
     var num = numb
     val nums = intArrayOf(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
