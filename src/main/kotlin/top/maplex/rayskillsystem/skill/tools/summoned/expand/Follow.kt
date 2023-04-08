@@ -12,7 +12,7 @@ interface Follow {
     var deviationY: Double
 
     //是否可以移动
-    var move: Boolean
+    var follow: Boolean
     //距离原点多少距离进行强制tp
     var distance: Int
 
@@ -30,7 +30,7 @@ interface Follow {
             data.teleport(pos)
             return
         }
-        if (move) {
+        if (follow) {
             if (source.distance(location) >= distance) {
                 data.teleport(pos)
                 return

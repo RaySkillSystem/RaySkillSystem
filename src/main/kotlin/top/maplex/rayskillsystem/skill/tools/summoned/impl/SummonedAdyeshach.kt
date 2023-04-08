@@ -17,7 +17,7 @@ class SummonedAdyeshach(
     override var deviationX: Double,
     override var deviationZ: Double,
     override var deviationY: Double,
-    override var move: Boolean = true,
+    override var follow: Boolean = true,
     override var distance: Int = 10,
 ) : SummonedEntity("adyeshach", master), Follow {
 
