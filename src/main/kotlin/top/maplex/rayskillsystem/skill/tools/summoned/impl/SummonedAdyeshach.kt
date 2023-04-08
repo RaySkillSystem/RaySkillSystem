@@ -8,6 +8,7 @@ import org.bukkit.entity.LivingEntity
 import taboolib.common.platform.function.submit
 import top.maplex.rayskillsystem.skill.tools.summoned.SummonedEntity
 import top.maplex.rayskillsystem.skill.tools.summoned.expand.Follow
+import top.maplex.rayskillsystem.skill.tools.summoned.expand.Limited
 import java.util.*
 
 class SummonedAdyeshach(
@@ -17,9 +18,10 @@ class SummonedAdyeshach(
     override var deviationX: Double,
     override var deviationZ: Double,
     override var deviationY: Double,
+    override val overTime: Long,
     override var follow: Boolean = true,
     override var distance: Int = 10,
-) : SummonedEntity("adyeshach", master), Follow {
+) : SummonedEntity("adyeshach", master), Follow, Limited {
 
     val player by lazy {
         Bukkit.getPlayer(master)
@@ -55,6 +57,7 @@ class SummonedAdyeshach(
     }
 
     override fun onUpdate(): Boolean {
+        checkTime(this)
         player?.location?.let {
             followEval(this, it)
         } ?: delete()

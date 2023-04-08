@@ -4,6 +4,9 @@ import org.bukkit.Bukkit
 import org.bukkit.Location
 import top.maplex.rayskillsystem.skill.tools.summoned.SummonedEntity
 
+/**
+ * 跟随框架
+ */
 interface Follow {
 
     //偏移位置

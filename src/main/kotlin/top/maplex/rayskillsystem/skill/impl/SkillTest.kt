@@ -58,7 +58,8 @@ object SkillTest : AbstractSkill {
         SummonedAdyeshach(
             player.uniqueId,
             entity,
-            1.0, 1.0, 1.0
+            1.0, 1.0, 1.0,
+            System.currentTimeMillis() + (1000 * 20)
         )
         return true
     }
