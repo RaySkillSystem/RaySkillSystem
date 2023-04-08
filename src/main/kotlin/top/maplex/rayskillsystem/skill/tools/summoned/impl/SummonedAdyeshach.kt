@@ -1,0 +1,64 @@
+package top.maplex.rayskillsystem.skill.tools.summoned.impl
+
+import ink.ptms.adyeshach.core.entity.EntityInstance
+import ink.ptms.adyeshach.impl.entity.trait.impl.setTraitTitle
+import org.bukkit.Bukkit
+import org.bukkit.Location
+import org.bukkit.entity.LivingEntity
+import taboolib.common.platform.function.submit
+import top.maplex.rayskillsystem.skill.tools.summoned.SummonedEntity
+import top.maplex.rayskillsystem.skill.tools.summoned.expand.Follow
+import java.util.*
+
+class SummonedAdyeshach(
+    override val master: UUID,
+    val entity: EntityInstance,
+
+    override var deviationX: Double,
+    override var deviationZ: Double,
+    override var deviationY: Double,
+    override var move: Boolean = true,
+    override var distance: Int = 10,
+) : SummonedEntity("adyeshach", master), Follow {
+
+    val player by lazy {
+        Bukkit.getPlayer(master)
+    }
+
+    override fun attack(target: LivingEntity, value: Double): Boolean {
+        move(target.location)
+        target.damage(value, player)
+        return super.attack(target, value)
+    }
+
+    override fun move(destination: Location): Boolean {
+        entity.controllerMoveTo(destination)
+        return true
+    }
+
+    override fun delete() {
+        entity.teleport(0.0, 0.0, 0.0)
+        entity.setTraitTitle(null)
+        submit(delay = 2) {
+            entity.remove()
+            delete = true
+        }
+    }
+
+    override fun getLocation(): Location {
+        return entity.getLocation()
+    }
+
+    override fun teleport(destination: Location): Boolean {
+        entity.teleport(destination)
+        return true
+    }
+
+    override fun onUpdate(): Boolean {
+        player?.location?.let {
+            followEval(this, it)
+        } ?: delete()
+        return super.onUpdate()
+    }
+
+}
