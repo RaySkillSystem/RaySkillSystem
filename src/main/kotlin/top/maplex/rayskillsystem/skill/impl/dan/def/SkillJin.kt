@@ -20,6 +20,7 @@ import top.maplex.rayskillsystem.skill.tools.Team
 import top.maplex.rayskillsystem.skill.tools.mechanism.damage.damage
 import top.maplex.rayskillsystem.skill.tools.mechanism.effect.spawnColor
 import top.maplex.rayskillsystem.skill.tools.target.TargetSingle
+import top.maplex.rayskillsystem.utils.getString
 
 
 object SkillJin : AbstractSkill, YuanSu, AbstractDanCast {

@@ -43,6 +43,12 @@ object BuffManager {
         add(target, name, level, tick, from)
     }
 
+    /**
+     * @param target 目标
+     * @param name Buff的ID
+     * @param level 等级
+     * @param from Buff来源的UUID（施法者UUID）
+     */
     fun add(target: LivingEntity, name: String, level: Int, tick: Long, from: UUID) {
         val get = buffs[name] ?: return
         val old = data.getOrDefault(target.uniqueId, hashMapOf())[name]
