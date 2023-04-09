@@ -32,14 +32,6 @@ object SkillPao : AbstractSkill {
 
     override val cooldown: Long = 3 * 20
 
-    override fun showItem(player: Player, level: Int): ItemStack {
-        return buildItem(Material.PAPER) {
-            this.name = "&f${SkillPao.name}"
-            colored()
-        }.apply {
-            set("RaySkill.type", this@SkillPao.name)
-        }
-    }
 
     override fun onCondition(player: Player, level: Int): Boolean {
         return true

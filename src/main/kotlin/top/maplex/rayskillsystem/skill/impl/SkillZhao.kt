@@ -16,7 +16,6 @@ import taboolib.module.effect.shape.Arc
 import taboolib.platform.util.buildItem
 import taboolib.platform.util.toProxyLocation
 import top.maplex.rayskillsystem.skill.AbstractSkill
-import top.maplex.rayskillsystem.skill.tools.Team
 import top.maplex.rayskillsystem.skill.tools.buff.BuffManager
 import top.maplex.rayskillsystem.skill.tools.buff.impl.BuffPoZhenTieJia
 import top.maplex.rayskillsystem.skill.tools.mechanism.damage.damage
@@ -24,37 +23,37 @@ import top.maplex.rayskillsystem.skill.tools.mechanism.damage.taunt
 import top.maplex.rayskillsystem.skill.tools.mechanism.effect.spawnColor
 import top.maplex.rayskillsystem.skill.tools.summoned.impl.SummonedAdyeshach
 import top.maplex.rayskillsystem.skill.tools.target.TargetCone
-import top.maplex.rayskillsystem.skill.tools.target.TargetRange
 import java.util.*
 
-object SkillTest : AbstractSkill {
+object SkillZhao : AbstractSkill {
 
     @Awake(LifeCycle.ENABLE)
     fun onEnable() {
         register()
     }
 
-    override val name: String = "测试"
+    override val name: String = "测试召唤"
 
     override val type: String = "无"
 
     override val cooldown: Long = 3 * 20
-
 
     override fun onCondition(player: Player, level: Int): Boolean {
         return true
     }
 
     override fun onRun(player: Player, level: Int): Boolean {
-        val target = TargetRange.get(player, 10.0, false).filter {
-            !Team.canAttack(player, it)
-        }.let {
-            if (it.size >= 2) {
-                it.subList(0, 1)
-            } else {
-                it
-            }
+        val entity = Adyeshach.api().getPublicEntityManager().create(
+            EntityTypes.CAT, player.location
+        ) {
+            it.isCollision = false
         }
+        SummonedAdyeshach(
+            player.uniqueId,
+            entity,
+            1.0, 1.0, 1.0,
+            System.currentTimeMillis() + (1000 * 20)
+        )
         return true
     }
 

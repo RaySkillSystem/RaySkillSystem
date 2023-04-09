@@ -38,12 +38,7 @@ object SkillTianHuoLin : AbstractSkill, YuanSu {
 
     override val cooldown: Long = 1 * 20
 
-    override fun showItem(player: Player, level: Int): ItemStack {
-        return buildItem(Material.PAPER) {
-            this.name = "&f${SkillTianHuoLin.name}"
-            colored()
-        }
-    }
+
 
     override fun onCondition(player: Player, level: Int): Boolean {
         return take(player, "fire", 3)

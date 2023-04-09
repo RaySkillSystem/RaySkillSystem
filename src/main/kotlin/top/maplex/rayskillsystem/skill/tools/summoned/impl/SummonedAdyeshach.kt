@@ -11,10 +11,9 @@ import top.maplex.rayskillsystem.skill.tools.summoned.expand.Follow
 import top.maplex.rayskillsystem.skill.tools.summoned.expand.Limited
 import java.util.*
 
-class SummonedAdyeshach(
+open class SummonedAdyeshach(
     override val master: UUID,
-    val entity: EntityInstance,
-
+    open val entity: EntityInstance,
     override var deviationX: Double,
     override var deviationZ: Double,
     override var deviationY: Double,

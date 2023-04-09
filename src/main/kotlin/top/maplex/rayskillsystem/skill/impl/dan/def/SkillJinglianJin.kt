@@ -45,12 +45,6 @@ object SkillJinglianJin : AbstractSkill, YuanSu, AbstractDanCast {
         lunch(this, event)
     }
 
-    override fun showItem(player: Player, level: Int): ItemStack {
-        return buildItem(Material.PAPER) {
-            this.name = "&f${SkillJinglianJin.name}"
-            colored()
-        }
-    }
 
     override fun onCondition(player: Player, level: Int): Boolean {
         return player.inventory.takeItem(1) {

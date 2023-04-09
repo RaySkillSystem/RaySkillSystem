@@ -10,6 +10,7 @@ import taboolib.module.chat.colored
 import taboolib.module.nms.sendToast
 import taboolib.module.nms.type.ToastBackground
 import taboolib.module.nms.type.ToastFrame
+import taboolib.platform.util.giveItem
 import top.maplex.rayskillsystem.skill.SkillManager
 
 @CommandHeader("RaySkillSystem", aliases = ["rss"])
@@ -35,6 +36,28 @@ object Command {
             }
             execute<Player> { sender, context, argument ->
                 SkillManager.eval(sender, context["skill"], 1)
+            }
+        }
+    }
+
+    @CommandBody
+    val castItem = subCommand {
+        dynamic("skill") {
+            suggestion<CommandSender> { sender, context ->
+                SkillManager.skills.keys().toList()
+            }
+            player("target") {
+                execute<Player> { sender, context, argument ->
+                    val player = Bukkit.getPlayer(context.player("target").uniqueId) ?: return@execute
+                    SkillManager.getSkill(context["skill"])?.showItem(player, 1)?.let {
+                        player.giveItem(it)
+                    }
+                }
+            }
+            execute<Player> { player, context, argument ->
+                SkillManager.getSkill(context["skill"])?.showItem(player, 1)?.let {
+                    player.giveItem(it)
+                }
             }
         }
     }

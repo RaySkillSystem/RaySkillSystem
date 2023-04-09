@@ -1,7 +1,12 @@
 package top.maplex.rayskillsystem.skill
 
+import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
+import taboolib.platform.util.buildItem
+import top.maplex.rayskillsystem.skill.impl.SkillPao
+import top.maplex.rayskillsystem.skill.impl.bow.SkillYuLing
+import top.maplex.rayskillsystem.utils.set
 import top.maplex.rayskillsystem.utils.toConsole
 
 interface AbstractSkill {
@@ -12,7 +17,14 @@ interface AbstractSkill {
 
     val cooldown: Long
 
-    fun showItem(player: Player, level: Int): ItemStack
+    fun showItem(player: Player, level: Int): ItemStack {
+        return buildItem(Material.PAPER) {
+            this.name = "&f${this@AbstractSkill.name}"
+            colored()
+        }.apply {
+            set("RaySkill.type", this@AbstractSkill.name)
+        }
+    }
 
     fun onCondition(player: Player, level: Int): Boolean = true
 

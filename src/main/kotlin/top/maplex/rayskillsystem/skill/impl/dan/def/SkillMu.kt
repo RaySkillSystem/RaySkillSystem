@@ -43,13 +43,6 @@ object SkillMu : AbstractSkill, YuanSu, AbstractDanCast {
         lunch(this, event)
     }
 
-    override fun showItem(player: Player, level: Int): ItemStack {
-        return buildItem(Material.PAPER) {
-            this.name = "&f${SkillMu.name}"
-            colored()
-        }
-    }
-
     override fun onCondition(player: Player, level: Int): Boolean {
         return take(player, "wood")
     }
