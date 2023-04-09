@@ -59,7 +59,7 @@ object SkillMu : AbstractSkill, YuanSu, AbstractDanCast {
             player.health += heal
         }
         BuffManager.add(player, BuffHuiChun.id, 1, 100L, player.uniqueId)
-        Circle(player.location.toProxyLocation(), 1.5, 8.0, 1,
+        Circle(player.location.toProxyLocation(), 1.5, 5.0, 1,
             object : ParticleSpawner {
                 override fun spawn(location: Location) {
                     spawnColor(2, location.add(0.0, 1.0, 0.0), 51, 255,51, 2F)

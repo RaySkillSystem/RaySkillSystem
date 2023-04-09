@@ -33,11 +33,15 @@ object SkillTu: AbstractSkill, YuanSu, AbstractDanCast {
         lunch(this, event)
     }
     override fun onCondition(player: Player, level: Int): Boolean {
+        return take(player, "earth")
+    }
+
+    override fun onRun(player: Player, level: Int): Boolean {
         val attribute = PlayerManager.getPlayerData(player).attribute
-        val value = attribute.getAttribute(AttributeEnum.ARRAY_STRENGTH)
+        val value = attribute.getAttribute(AttributeEnum.ARRAY_STRENGTH)+1
         val target = TargetRange.get(player,5.0,true)
         val lvl = when (value) {
-            in 9.0..29.0 -> 1
+            in 0.0..29.0 -> 1
             in 30.0..34.0 -> 2
             else -> 3
         }
@@ -46,10 +50,4 @@ object SkillTu: AbstractSkill, YuanSu, AbstractDanCast {
         }
         return true
     }
-
-    override fun onRun(player: Player, level: Int): Boolean {
-        
-        return true
-    }
-
 }
