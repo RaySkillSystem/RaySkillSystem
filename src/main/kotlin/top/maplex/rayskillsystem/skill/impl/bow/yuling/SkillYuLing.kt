@@ -1,30 +1,18 @@
-package top.maplex.rayskillsystem.skill.impl.bow
+package top.maplex.rayskillsystem.skill.impl.bow.yuling
 
 import ink.ptms.adyeshach.core.Adyeshach
 import ink.ptms.adyeshach.core.entity.EntityTypes
 import ink.ptms.adyeshach.core.entity.manager.ManagerType
 import ink.ptms.adyeshach.impl.entity.trait.impl.setTraitTitle
-import org.bukkit.Material
 import org.bukkit.entity.Arrow
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.event.entity.EntityDamageByEntityEvent
-import org.bukkit.event.entity.EntityDamageEvent
-import org.bukkit.inventory.ItemStack
 import taboolib.common.LifeCycle
 import taboolib.common.platform.Awake
 import taboolib.common.platform.event.SubscribeEvent
-import taboolib.common.util.Location
 import taboolib.module.chat.colored
-import taboolib.module.effect.ParticleSpawner
-import taboolib.module.effect.shape.Line
-import taboolib.platform.util.buildItem
-import taboolib.platform.util.toProxyLocation
-import top.maplex.panlingitem.api.PanLingAPI
-import top.maplex.panlingitem.api.PanLingStatic
 import top.maplex.rayskillsystem.skill.AbstractSkill
-import java.util.UUID
-import java.util.concurrent.ConcurrentHashMap
 
 
 object SkillYuLing : AbstractSkill {
@@ -74,19 +62,14 @@ object SkillYuLing : AbstractSkill {
         }
         if (arrow is Arrow) {
             val player = arrow.shooter as? Player ?: return
-            //val value = PanLingAPI.getPlayerData(player, PanLingStatic.STRENGTH_BOW).toInt() * 0.5
             data.filter { it.master == player.uniqueId }.forEach {
-                if (it.target == null) {
-                    it.target = livingEntity
-                }
+                it.target = livingEntity
             }
             return
         }
         val player = event.damager as? Player ?: return
         data.filter { it.master == player.uniqueId }.forEach {
-            if (it.target == null) {
-                it.target = livingEntity
-            }
+            it.target = livingEntity
         }
     }
 }

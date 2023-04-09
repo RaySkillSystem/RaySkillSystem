@@ -1,9 +1,11 @@
-package top.maplex.rayskillsystem.skill.impl.bow
+package top.maplex.rayskillsystem.skill.impl.bow.yuling
 
 import ink.ptms.adyeshach.core.entity.EntityInstance
 import org.bukkit.Location
 import org.bukkit.entity.LivingEntity
 import taboolib.common.platform.function.submit
+import top.maplex.panlingitem.api.PanLingAPI
+import top.maplex.panlingitem.api.PanLingStatic
 import top.maplex.rayskillsystem.skill.tools.summoned.impl.SummonedAdyeshach
 import top.maplex.rayskillsystem.utils.cooldown.CooldownAPI
 import java.util.*
@@ -21,9 +23,15 @@ class SummonedYuLing(
     var damageDistanc: Double = 1.8,
 ) : SummonedAdyeshach(master, entity, deviationX, deviationZ, deviationY, overTime, follow, distance) {
 
+    override fun move(destination: Location): Boolean {
+        entity.moveSpeed = 0.5
+        return super.move(destination)
+    }
+
     override fun attack(target: LivingEntity, value: Double): Boolean {
         follow = false
         move(getPos(target.location))
+        entity.controllerLookAt(target)
         player?.let { player ->
             if (!CooldownAPI.check(player, "SummonedYuLing_${entity.uniqueId}")) {
                 return false
@@ -32,7 +40,7 @@ class SummonedYuLing(
                 if (getLocation().distance(target.location) < damageDistanc) {
                     target.damage(value, player)
                     follow = true
-                    if (target.isDead){
+                    if (target.isDead) {
                         followEval(this@SummonedYuLing, player.location)
                     }
                     CooldownAPI.set(player, "SummonedYuLing_${entity.uniqueId}", 20)
@@ -45,11 +53,14 @@ class SummonedYuLing(
 
     override fun onUpdate(): Boolean {
         setTimeName()
-        if (target != null) {
-            if (target!!.isDead) {
-                target = null
-            } else {
-                attack(target!!, 5.0)
+        player?.let { player ->
+            if (target != null) {
+                if (target!!.isDead || getLocation().distance(target!!.location) >= 20) {
+                    target = null
+                } else {
+                    val value = PanLingAPI.getPlayerData(player, PanLingStatic.STRENGTH_BOW).toInt() * 0.3
+                    attack(target!!, value + 5)
+                }
             }
         }
         return super.onUpdate()

@@ -4,8 +4,6 @@ import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import taboolib.platform.util.buildItem
-import top.maplex.rayskillsystem.skill.impl.SkillPao
-import top.maplex.rayskillsystem.skill.impl.bow.SkillYuLing
 import top.maplex.rayskillsystem.utils.set
 import top.maplex.rayskillsystem.utils.toConsole
 

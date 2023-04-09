@@ -15,7 +15,13 @@ open class SummonedEntity(
     }
 
     private fun init() {
-        SummonedManager.data.add(this)
+        if (onCreate()) {
+            SummonedManager.data.add(this)
+        }
+    }
+
+    open fun onCreate(): Boolean {
+        return true
     }
 
     open fun move(destination: Location): Boolean {
