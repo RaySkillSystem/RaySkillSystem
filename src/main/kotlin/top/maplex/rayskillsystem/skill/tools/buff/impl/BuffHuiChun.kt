@@ -34,7 +34,7 @@ object BuffHuiChun : AbstractBuff {
         Circle(target.location.toProxyLocation(), 1.0, 10.0, 1,
             object : ParticleSpawner {
                 override fun spawn(location: Location) {
-                    spawnColor(5, location.add(0.0, 1.0, 0.0), 51, 255, 51, 2F)
+                    spawnColor(10, location.add(0.0, 1.0, 0.0), 51, 255, 51, 2F)
                 }
             }).show()
         val attribute = PlayerManager.getPlayerData(player).attribute

@@ -57,7 +57,6 @@ object SkillJin : AbstractSkill, YuanSu, AbstractDanCast {
         damage(player, target, value * 3.5)
         spawnColor(1, target.location.toProxyLocation(), 255, 238, 111, 3F)
 
-        //铁砧特效
         val targetLocation = target.location.add(0.0, 2.0, 0.0)
         if (targetLocation.block.type == Material.AIR) {
             spawn(target.location.add(0.0, 2.0, 0.0))
