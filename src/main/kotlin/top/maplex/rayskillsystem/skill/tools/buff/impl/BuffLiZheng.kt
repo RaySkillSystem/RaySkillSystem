@@ -38,7 +38,7 @@ object BuffLiZheng : AbstractBuff {
     override fun onJoin(target: LivingEntity, level: Int, time: Long, from: UUID): Boolean {
         if (level >= 5) {
             BuffManager.clearBuff(target, id)
-            val value = target.health * 0.1
+            val value = target.health * 0.05
             val player = Bukkit.getPlayer(from) ?: return false
             target.damage(value, player)
         }

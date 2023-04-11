@@ -40,6 +40,7 @@ object SkillBaiShuangYin : AbstractSkill {
             if (this is AdyPanda) {
                 setBaby(true)
             }
+            moveSpeed = 0.5
             setTraitTitle(listOf("[${player.name}]", "&b御灵·噬铁兽").colored())
         }
         SkillYuLing.data.add(

@@ -41,6 +41,7 @@ object SkillYuLing : AbstractSkill {
             setCustomNameVisible(true)
             setNoGravity(true)
             setTraitTitle(listOf("[${player.name}]", "御灵·猫").colored())
+            moveSpeed = 0.6
         }
         data.add(
             SummonedYuLingCat(

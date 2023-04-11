@@ -10,13 +10,14 @@ interface AbstractDanCast {
     val itemId: String
 
     fun lunch(skill: AbstractSkill, event: DanFurnaceLunchEvent) {
-        val player = event.player
-        if (!event.interEvent.isRightClick()) {
-            return
-        }
-        if (event.value.getString("id", "null") == itemId) {
-            SkillManager.eval(player, skill.name, 1)
-        }
+        return
+//        val player = event.player
+//        if (!event.interEvent.isRightClick()) {
+//            return
+//        }
+//        if (event.value.getString("id", "null") == itemId) {
+//            SkillManager.eval(player, skill.name, 1)
+//        }
     }
 
 }

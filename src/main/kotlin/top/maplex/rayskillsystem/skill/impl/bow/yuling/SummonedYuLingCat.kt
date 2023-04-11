@@ -29,12 +29,10 @@ open class SummonedYuLingCat(
 ) : SummonedAdyeshach(master, entity, deviationX, deviationZ, deviationY, overTime, follow, distance) {
 
     override fun move(destination: Location): Boolean {
-        entity.moveSpeed = 0.5
         return super.move(destination)
     }
 
     override fun attack(target: LivingEntity, value: Double): Boolean {
-        follow = false
         move(getPos(target.location))
         entity.controllerLookAt(target)
         (entity as? AdyMob)?.setAgressive(true)
@@ -42,6 +40,7 @@ open class SummonedYuLingCat(
             if (!CooldownAPI.check(player, "SummonedYuLing_${entity.uniqueId}")) {
                 return false
             }
+            follow = false
             if (getLocation().distance(target.location) < damageDistanc) {
                 if (zhengDu) {
                     BuffManager.plus(target, BuffLiZheng.id, 5 * 20, 5, master)

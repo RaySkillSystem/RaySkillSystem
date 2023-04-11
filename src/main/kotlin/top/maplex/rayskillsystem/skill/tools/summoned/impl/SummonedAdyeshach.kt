@@ -39,7 +39,6 @@ open class SummonedAdyeshach(
 
     override fun delete() {
         entity.teleport(0.0, 0.0, 0.0)
-        entity.setTraitTitle(null)
         submit(delay = 2) {
             entity.remove()
             delete = true

@@ -46,7 +46,6 @@ class SummonedYuLingBear(
     }
 
     override fun move(destination: Location): Boolean {
-        entity.moveSpeed = 0.3
         return super.move(destination)
     }
 
@@ -55,7 +54,7 @@ class SummonedYuLingBear(
         setTimeName()
         player?.let { player ->
             if (target != null) {
-                if (target!!.isDead || getLocation().distance(target!!.location) >= 20) {
+                if (target!!.isDead || getLocation().distance(target!!.location) >= 30) {
                     target = null
                 } else {
                     val value = PanLingAPI.getPlayerData(player, PanLingStatic.STRENGTH_BOW).toInt() * 0.3
@@ -79,7 +78,7 @@ class SummonedYuLingBear(
     }
 
     fun ridicule() {
-        TargetRange.get(villager, 5.0, false).forEach {
+        TargetRange.get(villager, 10.0, false).forEach {
             if (it is Mob) {
                 it.target = villager
                 spawnColor(5, it.location.clone().add(0.0, 2.0, 0.0).toProxyLocation(), 69, 70, 94, 3F)
@@ -87,7 +86,7 @@ class SummonedYuLingBear(
         }
         getLocation().world?.playSound(getLocation(), Sound.ENTITY_POLAR_BEAR_HURT, 1F, 1F)
         follow = false
-        submit(delay = 20 * 5) {
+        submit(delay = 20 * 10) {
             villager.remove()
             follow = true
         }
