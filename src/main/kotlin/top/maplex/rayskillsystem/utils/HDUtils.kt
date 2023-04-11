@@ -1,5 +1,6 @@
 package top.maplex.rayskillsystem.utils
 
+import eu.decentsoftware.holograms.api.DHAPI
 import ink.ptms.adyeshach.api.AdyeshachAPI
 import org.bukkit.Location
 import org.bukkit.Material
@@ -7,13 +8,13 @@ import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
 import taboolib.common.platform.function.submit
 import taboolib.module.chat.colored
+import java.util.UUID
 
 fun buildHologramNear(sender: Entity, info: List<String>, stay: Long = 15L) {
-    sender.getNearbyEntities(30.0, 30.0, 30.0).mapNotNull { it as? Player }.forEach { player ->
-        val data = AdyeshachAPI.createHologram(player, getRandom(sender.location), info.colored())
-        submit(delay = stay) {
-            data.delete()
-        }
+    val uuid = UUID.randomUUID().toString()
+    DHAPI.createHologram(uuid, getRandom(sender.location), false, info.colored())
+    submit(delay = stay) {
+        DHAPI.removeHologram(uuid)
     }
 }
 

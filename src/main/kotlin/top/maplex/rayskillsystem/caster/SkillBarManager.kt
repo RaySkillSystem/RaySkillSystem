@@ -40,12 +40,17 @@ object SkillBarManager {
         item.apply {
             set("RaySkill.type", skillName)
             val cooldown = CooldownAPI.getTimeLong(player, "Skill_${skillName}")
-            amount = if (cooldown <= 0) {
+            val am = if (cooldown <= 0) {
                 1
             } else if (cooldown <= 2000L) {
                 2
             } else {
                 (cooldown / 1000).toInt()
+            }
+            amount = if (am >= 128) {
+                128
+            } else {
+                am
             }
         }
     }

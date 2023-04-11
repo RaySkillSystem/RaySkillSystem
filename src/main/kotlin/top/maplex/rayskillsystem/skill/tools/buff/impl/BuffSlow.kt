@@ -11,6 +11,7 @@ import taboolib.common.platform.Awake
 import taboolib.common.platform.event.SubscribeEvent
 import top.maplex.rayskillsystem.skill.tools.buff.AbstractBuff
 import top.maplex.rayskillsystem.skill.tools.buff.BuffManager
+import java.util.*
 
 object BuffSlow : AbstractBuff {
 
@@ -24,7 +25,7 @@ object BuffSlow : AbstractBuff {
     override val info: String = "&e移动速度减少"
     override val icon: Material = Material.ICE
 
-    override fun onJoin(target: LivingEntity, level: Int, time: Long): Boolean {
+    override fun onJoin(target: LivingEntity, level: Int, time: Long, from: UUID): Boolean {
         target.addPotionEffect(PotionEffect(PotionEffectType.SLOW, time.toInt(), level))
         return true
     }

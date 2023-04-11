@@ -48,7 +48,7 @@ interface AbstractBuff {
         target.info("&c- &f${name}${intToRoman(level)}")
     }
 
-    fun onJoin(target: LivingEntity, level: Int, time: Long): Boolean = true
+    fun onJoin(target: LivingEntity, level: Int, time: Long, from: UUID): Boolean = true
 
     fun onTick(target: LivingEntity, level: Int, time: Long, from: UUID): Boolean {
         val last = (time - System.currentTimeMillis()) / 1000.0

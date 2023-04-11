@@ -20,6 +20,7 @@ import top.maplex.rayskillsystem.skill.tools.buff.AbstractBuff
 import top.maplex.rayskillsystem.skill.tools.buff.BuffManager
 import top.maplex.rayskillsystem.skill.tools.mechanism.effect.spawnColor
 import top.maplex.rayskillsystem.utils.info
+import java.util.*
 import top.maplex.rayskillsystem.skill.tools.mechanism.damage.damage as Damage
 
 object BuffBiBoXing : AbstractBuff {
@@ -34,9 +35,9 @@ object BuffBiBoXing : AbstractBuff {
     override val info: String = "&e对周围目标造成窒息效果"
     override val icon: Material = Material.STRING
 
-    override fun onJoin(target: LivingEntity, level: Int, time: Long): Boolean {
+    override fun onJoin(target: LivingEntity, level: Int, time: Long, from: UUID): Boolean {
         target.addPotionEffect(PotionEffect(PotionEffectType.SPEED, time.toInt(), 3))
-        return super.onJoin(target, level, time)
+        return true
     }
 
     @Schedule(period = 20)

@@ -72,7 +72,7 @@ object BuffManager {
         }
         val event = BuffAddEvent(target, get, level, tick)
         event.call()
-        get.onJoin(event.target, event.level, event.tick)
+        get.onJoin(event.target, event.level, event.tick, from)
         get.toast(event.target, event.level, event.tick)
     }
 
@@ -101,7 +101,7 @@ object BuffManager {
             }
             return
         }
-        get.onTick(target, buff.level, buff.overtime,buff.from)
+        get.onTick(target, buff.level, buff.overtime, buff.from)
     }
 
 
