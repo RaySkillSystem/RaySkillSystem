@@ -48,7 +48,8 @@ object SkillYuLing : AbstractSkill {
                 player.uniqueId,
                 entity,
                 1.0, 1.0, 1.0,
-                System.currentTimeMillis() + (1000 * 120)
+                System.currentTimeMillis() + (1000 * 120),
+                damageDistanc = 2.0
             )
         )
         return true
