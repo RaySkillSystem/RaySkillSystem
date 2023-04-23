@@ -1,5 +1,6 @@
 package top.maplex.rayskillsystem.skill.tools.target
 
+import org.bukkit.Location
 import org.bukkit.entity.LivingEntity
 
 object TargetRange {
@@ -21,6 +22,19 @@ object TargetRange {
                 add(source)
             }
         }
+    }
+
+    fun get(source: Location, range: Double): List<LivingEntity> {
+        source.world?.getNearbyEntities(source, range, range, range)?.mapNotNull {
+            if (!it.isDead) {
+                it as? LivingEntity
+            } else {
+                null
+            }
+        }?.toMutableList()?.let {
+            return it
+        }
+        return emptyList()
     }
 
 }

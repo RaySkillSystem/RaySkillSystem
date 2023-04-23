@@ -1,6 +1,8 @@
-package top.maplex.rayskillsystem.skill.impl.dan.def
+package top.maplex.rayskillsystem.skill.impl.dan.def.tu
 
 import org.bukkit.entity.Player
+import org.bukkit.potion.PotionEffect
+import org.bukkit.potion.PotionEffectType
 import taboolib.common.LifeCycle
 import taboolib.common.platform.Awake
 import taboolib.common.platform.event.SubscribeEvent
@@ -9,36 +11,42 @@ import top.maplex.panlingcore.common.core.player.attribute.AttributeEnum
 import top.maplex.rayskillsystem.caster.dan.AbstractDanCast
 import top.maplex.rayskillsystem.caster.dan.DanFurnaceLunchEvent
 import top.maplex.rayskillsystem.skill.AbstractSkill
+import top.maplex.rayskillsystem.skill.impl.dan.def.YuanSu
 import top.maplex.rayskillsystem.skill.tools.target.TargetRange
 
-object SkillJinglianMu: AbstractSkill, YuanSu, AbstractDanCast {
-    @Awake(LifeCycle.ENABLE)
+object SkillTu: AbstractSkill, YuanSu, AbstractDanCast {
+    @Awake(LifeCycle.LOAD)
     fun onEnable() {
         register()
     }
-
-    override val name: String = "精炼木元素"
+    override val name: String = "土元素"
 
     override val type: String = "炼丹师"
 
-    //浓缩600
-    override val cooldown: Long = 160
+    override val cooldown: Long = 50
 
-    override val itemId: String = "panling:refined_wood"
+    override val itemId: String = "panling:earth"
 
     @SubscribeEvent
     fun onLunch(event: DanFurnaceLunchEvent) {
         lunch(this, event)
     }
     override fun onCondition(player: Player, level: Int): Boolean {
-        return take(player, "refined_wood")
+        return take(player, "earth")
     }
 
-    override fun onRun(player: Player, level: Int): Boolean{
+    override fun onRun(player: Player, level: Int): Boolean {
         val attribute = PlayerManager.getPlayerData(player).attribute
         val value = attribute.getAttribute(AttributeEnum.ARRAY_STRENGTH)+1
-        val target = TargetRange.get(player,8.0,true)
-
+        val target = TargetRange.get(player,5.0,true)
+        val lvl = when (value) {
+            in 0.0..29.0 -> 1
+            in 30.0..34.0 -> 2
+            else -> 3
+        }
+        target.forEach {
+                it.addPotionEffect(PotionEffect(PotionEffectType.ABSORPTION, 1800 * 20, lvl))
+        }
         return true
     }
 }

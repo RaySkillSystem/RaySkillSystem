@@ -15,7 +15,7 @@ import top.maplex.rayskillsystem.skill.AbstractSkill
 
 object SkillBaiShuangYin : AbstractSkill {
 
-    @Awake(LifeCycle.ENABLE)
+    @Awake(LifeCycle.LOAD)
     fun onEnable() {
         register()
     }

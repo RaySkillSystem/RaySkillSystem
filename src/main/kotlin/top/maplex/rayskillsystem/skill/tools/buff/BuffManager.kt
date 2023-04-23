@@ -1,6 +1,7 @@
 package top.maplex.rayskillsystem.skill.tools.buff
 
 import org.bukkit.Bukkit
+import org.bukkit.entity.Entity
 import org.bukkit.entity.LivingEntity
 import taboolib.common.platform.Schedule
 import top.maplex.rayskillsystem.skill.tools.buff.event.BuffAddEvent
@@ -24,6 +25,11 @@ object BuffManager {
     }
 
     fun getBuff(target: LivingEntity, name: String): Int {
+        val old = data.getOrDefault(target.uniqueId, hashMapOf())[name]
+        return old?.level ?: 0
+    }
+
+    fun getBuff(target: Entity, name: String): Int {
         val old = data.getOrDefault(target.uniqueId, hashMapOf())[name]
         return old?.level ?: 0
     }

@@ -27,7 +27,7 @@ import top.maplex.rayskillsystem.skill.tools.target.TargetSingle
 
 object SkillTianHuoLin : AbstractSkill, YuanSu {
 
-    @Awake(LifeCycle.ENABLE)
+    @Awake(LifeCycle.LOAD)
     fun onEnable() {
         register()
     }

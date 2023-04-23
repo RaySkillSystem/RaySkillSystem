@@ -12,7 +12,7 @@ import top.maplex.rayskillsystem.skill.tools.buff.BuffManager
 
 object BuffHanXiao : AbstractBuff {
 
-    @Awake(LifeCycle.ENABLE)
+    @Awake(LifeCycle.LOAD)
     fun onEnable() {
         register()
     }

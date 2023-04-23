@@ -11,7 +11,7 @@ import top.maplex.rayskillsystem.skill.tools.buff.BuffManager
 
 object BuffPoZhenTieJia : AbstractBuff {
 
-    @Awake(LifeCycle.ENABLE)
+    @Awake(LifeCycle.LOAD)
     fun onEnable() {
         register()
     }

@@ -21,7 +21,7 @@ import java.util.*
 
 object SkillPao : AbstractSkill {
 
-    @Awake(LifeCycle.ENABLE)
+    @Awake(LifeCycle.LOAD)
     fun onEnable() {
         register()
     }

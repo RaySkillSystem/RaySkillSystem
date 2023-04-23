@@ -11,7 +11,7 @@ object SummonedManager {
     val data = ConcurrentHashMap.newKeySet<SummonedEntity>()
 
 
-    @Schedule(period = 10)
+    @Schedule(period = 5)
     fun update() {
         data.forEach {
             it.onUpdate()

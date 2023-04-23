@@ -29,7 +29,7 @@ import java.util.*
 
 object SkillTest : AbstractSkill {
 
-    @Awake(LifeCycle.ENABLE)
+    @Awake(LifeCycle.LOAD)
     fun onEnable() {
         register()
     }

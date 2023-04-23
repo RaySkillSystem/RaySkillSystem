@@ -6,6 +6,8 @@ import ink.ptms.adyeshach.core.entity.type.AdyMob
 import org.bukkit.Location
 import org.bukkit.entity.LivingEntity
 import taboolib.module.chat.colored
+import top.maplex.panlingcore.common.core.PlayerManager
+import top.maplex.panlingcore.common.core.player.attribute.AttributeEnum
 import top.maplex.panlingitem.api.PanLingAPI
 import top.maplex.panlingitem.api.PanLingStatic
 import top.maplex.rayskillsystem.skill.tools.buff.BuffManager
@@ -24,7 +26,7 @@ open class SummonedYuLingCat(
     override var follow: Boolean = true,
     override var distance: Int = 10,
     open var target: LivingEntity? = null,
-    open var damageDistanc: Double = 1.8,
+    open var damageDistanc: Double = 2.0,
     open var zhengDu: Boolean = false,
 ) : SummonedAdyeshach(master, entity, deviationX, deviationZ, deviationY, overTime, follow, distance) {
 
@@ -65,7 +67,9 @@ open class SummonedYuLingCat(
                 if (target!!.isDead || getLocation().distance(target!!.location) >= 20) {
                     target = null
                 } else {
-                    val value = PanLingAPI.getPlayerData(player, PanLingStatic.STRENGTH_BOW).toInt() * 0.2
+                    val attribute = PlayerManager.getPlayerData(player).attribute
+                    val value = (attribute.getAttribute(AttributeEnum.BOW_STRENGTH) + 1) * 0.25
+                    //val value = PanLingAPI.getPlayerData(player, PanLingStatic.STRENGTH_BOW).toInt() * 0.2
                     attack(target!!, value + 1)
                 }
             }

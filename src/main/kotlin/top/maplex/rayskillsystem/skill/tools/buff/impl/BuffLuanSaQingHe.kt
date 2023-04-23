@@ -7,7 +7,7 @@ import top.maplex.rayskillsystem.skill.tools.buff.AbstractBuff
 
 object BuffLuanSaQingHe : AbstractBuff {
 
-    @Awake(LifeCycle.ENABLE)
+    @Awake(LifeCycle.LOAD)
     fun onEnable() {
         register()
     }
@@ -15,8 +15,7 @@ object BuffLuanSaQingHe : AbstractBuff {
     override val id: String = "乱撒清荷"
     override val name: String = "&a乱撒清荷"
     override val info: String = "&e持续期间炼化元素无冷却"
-    override val icon: Material = Material.APPLE
-
+    override val icon: Material = Material.BIG_DRIPLEAF
 
 
 }

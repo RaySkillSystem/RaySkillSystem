@@ -20,7 +20,7 @@ import java.util.concurrent.ConcurrentHashMap
 
 object SkillErBai : AbstractSkill {
 
-    @Awake(LifeCycle.ENABLE)
+    @Awake(LifeCycle.LOAD)
     fun onEnable() {
         register()
     }

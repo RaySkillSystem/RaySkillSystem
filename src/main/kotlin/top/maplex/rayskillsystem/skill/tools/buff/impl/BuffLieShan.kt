@@ -11,7 +11,7 @@ import top.maplex.rayskillsystem.skill.tools.buff.BuffManager
 
 object BuffLieShan : AbstractBuff {
 
-    @Awake(LifeCycle.ENABLE)
+    @Awake(LifeCycle.LOAD)
     fun onEnable() {
         register()
     }

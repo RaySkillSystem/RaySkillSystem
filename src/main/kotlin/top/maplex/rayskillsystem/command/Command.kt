@@ -26,7 +26,7 @@ object Command {
     val cast = subCommand {
         dynamic("skill") {
             suggestion<CommandSender> { sender, context ->
-                SkillManager.skills.keys().toList()
+                SkillManager.skills.keys.toList()
             }
             player("target") {
                 execute<Player> { sender, context, argument ->
@@ -44,7 +44,7 @@ object Command {
     val castItem = subCommand {
         dynamic("skill") {
             suggestion<CommandSender> { sender, context ->
-                SkillManager.skills.keys().toList()
+                SkillManager.skills.keys.toList()
             }
             player("target") {
                 execute<Player> { sender, context, argument ->

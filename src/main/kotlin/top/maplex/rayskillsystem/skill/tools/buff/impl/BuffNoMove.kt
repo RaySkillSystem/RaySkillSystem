@@ -15,7 +15,7 @@ import java.util.*
 
 object BuffNoMove : AbstractBuff {
 
-    @Awake(LifeCycle.ENABLE)
+    @Awake(LifeCycle.LOAD)
     fun onEnable() {
         register()
     }

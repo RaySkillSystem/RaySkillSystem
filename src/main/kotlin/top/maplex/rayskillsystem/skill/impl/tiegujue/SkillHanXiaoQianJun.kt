@@ -22,7 +22,7 @@ import java.util.*
 
 object SkillHanXiaoQianJun : AbstractSkill {
 
-    @Awake(LifeCycle.ENABLE)
+    @Awake(LifeCycle.LOAD)
     fun onEnable() {
         register()
     }

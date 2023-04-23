@@ -36,7 +36,6 @@ object Listener {
         }
         val key = value.getString("Dan.type")
         DanFurnaceLunchEvent(event.player, furnace, value, key, event).call()
-
     }
 
 }

@@ -25,7 +25,7 @@ import top.maplex.rayskillsystem.skill.tools.target.TargetRange
 
 object SkillPanShanDing : AbstractSkill,YuanSu {
 
-    @Awake(LifeCycle.ENABLE)
+    @Awake(LifeCycle.LOAD)
     fun onEnable() {
         register()
     }

@@ -25,7 +25,7 @@ import top.maplex.rayskillsystem.skill.tools.mechanism.damage.damage as Damage
 
 object BuffBiBoXing : AbstractBuff {
 
-    @Awake(LifeCycle.ENABLE)
+    @Awake(LifeCycle.LOAD)
     fun onEnable() {
         register()
     }

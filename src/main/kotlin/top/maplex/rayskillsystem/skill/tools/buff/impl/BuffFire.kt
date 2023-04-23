@@ -16,7 +16,7 @@ import java.util.*
 
 object BuffFire : AbstractBuff {
 
-    @Awake(LifeCycle.ENABLE)
+    @Awake(LifeCycle.LOAD)
     fun onEnable() {
         register()
     }

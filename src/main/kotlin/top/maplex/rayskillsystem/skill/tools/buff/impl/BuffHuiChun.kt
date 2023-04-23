@@ -12,13 +12,14 @@ import taboolib.platform.util.toProxyLocation
 import top.maplex.panlingcore.common.core.PlayerManager
 import top.maplex.panlingcore.common.core.player.attribute.AttributeEnum
 import top.maplex.rayskillsystem.skill.tools.buff.AbstractBuff
+import top.maplex.rayskillsystem.skill.tools.mechanism.damage.heal
 import top.maplex.rayskillsystem.skill.tools.mechanism.effect.spawnColor
 import java.util.*
 
 object BuffHuiChun : AbstractBuff {
 
 
-    @Awake(LifeCycle.ENABLE)
+    @Awake(LifeCycle.LOAD)
     fun onEnable() {
         register()
     }
@@ -31,15 +32,9 @@ object BuffHuiChun : AbstractBuff {
     //每秒触发一次
     override fun onTick(target: LivingEntity, level: Int, time: Long, from: UUID): Boolean {
         val player = Bukkit.getPlayer(from) ?: return false
-        Circle(target.location.toProxyLocation(), 1.0, 10.0, 1,
-            object : ParticleSpawner {
-                override fun spawn(location: Location) {
-                    spawnColor(10, location.add(0.0, 1.0, 0.0), 51, 255, 51, 2F)
-                }
-            }).show()
         val attribute = PlayerManager.getPlayerData(player).attribute
         val value = (attribute.getAttribute(AttributeEnum.ARRAY_STRENGTH) + 1)
-        target.health += (value * 0.045)
+        heal(player,target, value * 0.045)
         return true
     }
 

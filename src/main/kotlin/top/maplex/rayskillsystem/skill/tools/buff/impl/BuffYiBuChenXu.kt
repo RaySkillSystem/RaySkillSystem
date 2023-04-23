@@ -20,30 +20,35 @@ import top.maplex.rayskillsystem.skill.tools.buff.AbstractBuff
 import top.maplex.rayskillsystem.skill.tools.buff.BuffManager
 import top.maplex.rayskillsystem.skill.tools.mechanism.effect.spawnColor
 import top.maplex.rayskillsystem.utils.info
-import java.util.UUID
+import java.util.*
 import top.maplex.rayskillsystem.skill.tools.mechanism.damage.damage as Damage
 
-object BuffLiZheng : AbstractBuff {
+object BuffYiBuChenXu : AbstractBuff {
 
     @Awake(LifeCycle.LOAD)
     fun onEnable() {
         register()
     }
 
-    override val id: String = "离争"
-    override val name: String = "&c离争"
-    override val info: String = "&e叠加五次后造成一次高额伤害"
-    override val icon: Material = Material.STRING
+    override val id: String = "逸尘步虚"
+    override val name: String = "&b逸尘步虚"
+    override val info: String = "&b免疫摔伤与缓降效果"
+    override val icon: Material = Material.FEATHER
 
     override fun onJoin(target: LivingEntity, level: Int, time: Long, from: UUID): Boolean {
-        if (level >= 5) {
-            BuffManager.clearBuff(target, id)
-            val value = target.health * 0.05
-            val player = Bukkit.getPlayer(from) ?: return false
-            target.damage(value, player)
-        }
+        target.addPotionEffect(PotionEffect(PotionEffectType.SLOW_FALLING, time.toInt(), 2))
         return true
     }
 
+    @SubscribeEvent
+    fun onDamage(event: EntityDamageEvent) {
+        val level = BuffManager.getBuff(event.entity, id)
+        if (level <= 0) {
+            return
+        }
+        if (event.cause == EntityDamageEvent.DamageCause.FALL) {
+            event.isCancelled = true
+        }
+    }
 
 }

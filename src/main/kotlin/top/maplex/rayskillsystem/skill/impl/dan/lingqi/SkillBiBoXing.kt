@@ -15,7 +15,7 @@ import top.maplex.rayskillsystem.skill.tools.buff.impl.BuffBiBoXing
 
 object SkillBiBoXing : AbstractSkill, YuanSu {
 
-    @Awake(LifeCycle.ENABLE)
+    @Awake(LifeCycle.LOAD)
     fun onEnable() {
         register()
     }

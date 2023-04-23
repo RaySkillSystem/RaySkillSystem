@@ -32,6 +32,42 @@ fun AbstractSkill.damage(damager: LivingEntity, target: LivingEntity, value: Dou
         MythicMobsUtils.taunt(target, damager, value)
     }
 }
+
+fun heal(damager: LivingEntity, target: List<LivingEntity>, value: Double) {
+    target.forEach {
+        if (!Team.canAttack(damager, it)) {
+            val maxHeal = it.getAttribute(Attribute.GENERIC_MAX_HEALTH)?.value ?: 20.0
+            if (it.health + value >= maxHeal) {
+                it.health = maxHeal
+            } else {
+                it.health += value
+            }
+            damager.getNearbyEntities(5.0, 5.0, 5.0).forEach { mob ->
+                if (mob is LivingEntity) {
+                    MythicMobsUtils.taunt(mob, damager, value)
+                }
+            }
+        }
+    }
+}
+
+fun heal(damager: LivingEntity, target: LivingEntity, value: Double) {
+    if (!Team.canAttack(damager, target)) {
+        val maxHeal = target.getAttribute(Attribute.GENERIC_MAX_HEALTH)?.value ?: 20.0
+        if (target.health + value >= maxHeal) {
+            target.health = maxHeal
+        } else {
+            target.health += value
+        }
+        damager.getNearbyEntities(5.0, 5.0, 5.0).forEach { mob ->
+            if (mob is LivingEntity) {
+                MythicMobsUtils.taunt(mob, damager, value)
+            }
+        }
+    }
+
+}
+
 fun damage(damager: LivingEntity, target: LivingEntity, value: Double) {
     if (Team.canAttack(damager, target)) {
         target.damage(value, damager)

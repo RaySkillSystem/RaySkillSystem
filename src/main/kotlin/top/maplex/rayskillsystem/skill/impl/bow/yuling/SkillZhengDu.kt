@@ -15,7 +15,7 @@ import top.maplex.rayskillsystem.utils.info
 
 object SkillZhengDu : AbstractSkill {
 
-    @Awake(LifeCycle.ENABLE)
+    @Awake(LifeCycle.LOAD)
     fun onEnable() {
         register()
     }

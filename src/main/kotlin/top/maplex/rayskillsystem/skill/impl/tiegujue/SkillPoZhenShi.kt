@@ -24,7 +24,7 @@ import java.util.*
 
 object SkillPoZhenShi : AbstractSkill {
 
-    @Awake(LifeCycle.ENABLE)
+    @Awake(LifeCycle.LOAD)
     fun onEnable() {
         register()
     }

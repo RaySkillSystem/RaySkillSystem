@@ -24,7 +24,7 @@ import java.util.*
 
 object SkillJiXueGuanShan : AbstractSkill {
 
-    @Awake(LifeCycle.ENABLE)
+    @Awake(LifeCycle.LOAD)
     fun onEnable() {
         register()
     }
