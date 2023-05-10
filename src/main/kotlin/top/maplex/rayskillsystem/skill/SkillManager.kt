@@ -1,17 +1,9 @@
 package top.maplex.rayskillsystem.skill
 
-import org.bukkit.block.Block
 import org.bukkit.entity.Player
-import top.maplex.panlingcore.PanLingCore
-import top.maplex.panlingcore.common.core.PlayerManager
-import top.maplex.panlingcore.common.core.player.attribute.AttributeEnum
-import top.maplex.rayskillsystem.caster.dan.AbstractDanCast
-import top.maplex.rayskillsystem.skill.tools.buff.BuffManager
-import top.maplex.rayskillsystem.skill.tools.buff.impl.BuffLuanSaQingHe
 import top.maplex.rayskillsystem.utils.cooldown.CooldownAPI
 import top.maplex.rayskillsystem.utils.error
 import top.maplex.rayskillsystem.utils.info
-import java.util.concurrent.ConcurrentHashMap
 
 object SkillManager {
 
@@ -45,17 +37,8 @@ object SkillManager {
             return false
         }
         if (skill.cooldown > 0) {
-            val attribute = PlayerManager.getPlayerData(player).attribute
-            val value = attribute.getAttribute(AttributeEnum.COOLDOWN_SPEED)
-            if (skill is AbstractDanCast) {
-                if (BuffManager.getBuff(player, BuffLuanSaQingHe.id) <= 0) {
-                    CooldownAPI.set(player, "Skill_${name}", (skill.cooldown - (skill.cooldown * value)).toLong())
-                }else{
-                    player.info("乱撒状态 无视冷却!")
-                }
-            } else {
-                CooldownAPI.set(player, "Skill_${name}", (skill.cooldown - (skill.cooldown * value)).toLong())
-            }
+            val value = 1.0
+            CooldownAPI.set(player, "Skill_${name}", (skill.cooldown - (skill.cooldown * value)).toLong())
         }
         callBack.invoke(skill)
         return true
