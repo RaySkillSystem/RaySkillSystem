@@ -7,8 +7,6 @@ import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.player.PlayerItemHeldEvent
 import taboolib.common.platform.Schedule
 import taboolib.common.platform.event.SubscribeEvent
-import top.maplex.panlingitem.api.PanLingAPI
-import top.maplex.panlingitem.api.PanLingStatic
 import top.maplex.rayskillsystem.skill.SkillManager
 import top.maplex.rayskillsystem.utils.cooldown.CooldownAPI
 import top.maplex.rayskillsystem.utils.error
@@ -16,7 +14,7 @@ import top.maplex.rayskillsystem.utils.getInt
 import top.maplex.rayskillsystem.utils.getString
 import top.maplex.rayskillsystem.utils.set
 import java.text.SimpleDateFormat
-import java.util.UUID
+import java.util.*
 
 
 object SkillBarManager {
@@ -66,13 +64,6 @@ object SkillBarManager {
         val skillName = item.getString("RaySkill.type")
         if (skillName == "null") {
             return
-        }
-        val job = item.getString("RaySkill.job", "-1")
-        if (job != "-1" && !player.isOp) {
-            if (PanLingAPI.getPlayerData(player, PanLingStatic.JOB) != job) {
-                event.player.error("职业不符 无法释放")
-                return
-            }
         }
         val skillLevel = item.getInt("RaySkill.level", 1)
         SkillManager.eval(player, skillName, skillLevel)
