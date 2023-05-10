@@ -14,6 +14,8 @@ fun Ray.backShow(
     wall: Boolean = true,
     //动画播放速度
     period: Long = 0L,
+    //每一帧的步长
+    stepTick: Int = 1,
     //播放时执行
     action: Location.() -> Unit = {},
     //碰到实体后执行
@@ -27,27 +29,31 @@ fun Ray.backShow(
             over.invoke()
             cancel()
         }
-        val vectorTemp = direction.clone().multiply(i)
-        val spawnLocation = origin.clone().add(vectorTemp)
-        spawnParticle(spawnLocation)
-        action.invoke(spawnLocation)
-        //每一帧只会给一个目标造成一次伤害
-        val list = mutableListOf<UUID>()
-        if (wall && spawnLocation.toBukkitLocation().block.type != Material.AIR) {
-            over.invoke()
-            return@submit
-        }
-        spawnLocation.toBukkitLocation().world?.getNearbyEntities(spawnLocation.toBukkitLocation(), 0.2, 0.2, 0.2) {
-            it is LivingEntity
-        }?.forEach {
-            (it as? LivingEntity)?.let { player ->
-                if (!list.contains(player.uniqueId)) {
-                    near.invoke(player)
-                    list.add(player.uniqueId)
+        var a = stepTick
+        while (a <= 0) {
+            a--
+            val vectorTemp = direction.clone().multiply(i)
+            val spawnLocation = origin.clone().add(vectorTemp)
+            spawnParticle(spawnLocation)
+            action.invoke(spawnLocation)
+            //每一帧只会给一个目标造成一次伤害
+            val list = mutableListOf<UUID>()
+            if (wall && spawnLocation.toBukkitLocation().block.type != Material.AIR) {
+                over.invoke()
+                return@submit
+            }
+            spawnLocation.toBukkitLocation().world?.getNearbyEntities(spawnLocation.toBukkitLocation(), 0.2, 0.2, 0.2) {
+                it is LivingEntity
+            }?.forEach {
+                (it as? LivingEntity)?.let { player ->
+                    if (!list.contains(player.uniqueId)) {
+                        near.invoke(player)
+                        list.add(player.uniqueId)
+                    }
                 }
             }
+            i += step
         }
-        i += step
     }
 
 
