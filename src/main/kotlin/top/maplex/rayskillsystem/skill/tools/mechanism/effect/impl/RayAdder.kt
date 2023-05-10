@@ -30,6 +30,7 @@ fun Ray.backShow(
             cancel()
         }
         var a = stepTick
+        val list = mutableListOf<UUID>()
         while (a <= 0) {
             a--
             val vectorTemp = direction.clone().multiply(i)
@@ -37,7 +38,6 @@ fun Ray.backShow(
             spawnParticle(spawnLocation)
             action.invoke(spawnLocation)
             //每一帧只会给一个目标造成一次伤害
-            val list = mutableListOf<UUID>()
             if (wall && spawnLocation.toBukkitLocation().block.type != Material.AIR) {
                 over.invoke()
                 return@submit
