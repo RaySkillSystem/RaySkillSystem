@@ -4,6 +4,8 @@ import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
+import ray.mintcat.aboleth.api.AbolethAPI
+import ray.mintcat.aboleth.api.AbolethAction
 import taboolib.common.platform.command.*
 import taboolib.expansion.createHelper
 import taboolib.module.chat.colored
@@ -11,9 +13,10 @@ import taboolib.module.nms.sendToast
 import taboolib.module.nms.type.ToastBackground
 import taboolib.module.nms.type.ToastFrame
 import taboolib.platform.util.giveItem
+import top.maplex.rayskillsystem.caster.SkillBarManager
 import top.maplex.rayskillsystem.skill.SkillManager
 
-@CommandHeader("RaySkillSystem", aliases = ["rss"])
+@CommandHeader("RaySkillSystem", aliases = ["rss"], permission = "rayskill.use")
 object Command {
 
     @CommandBody
@@ -21,8 +24,22 @@ object Command {
         createHelper()
     }
 
+    @CommandBody(permission = "rayskill.type")
+    val castType = subCommand {
+        player("target") {
+            execute<Player> { sender, context, argument ->
+                val player = Bukkit.getPlayer(context.player("target").uniqueId) ?: return@execute
+                SkillBarManager.edit(player)
+            }
+        }
+        execute<Player> { sender, context, argument ->
+            SkillBarManager.edit(sender)
+        }
+    }
+
+
     //rss cast Skill Target
-    @CommandBody
+    @CommandBody(permission = "rayskill.admin")
     val cast = subCommand {
         dynamic("skill") {
             suggestion<CommandSender> { sender, context ->
@@ -40,7 +57,7 @@ object Command {
         }
     }
 
-    @CommandBody
+    @CommandBody(permission = "rayskill.admin")
     val castItem = subCommand {
         dynamic("skill") {
             suggestion<CommandSender> { sender, context ->
@@ -62,7 +79,7 @@ object Command {
         }
     }
 
-    @CommandBody
+    @CommandBody(permission = "rayskill.admin")
     val test = subCommand {
         execute<Player> { sender, context, argument ->
             sender.sendToast(

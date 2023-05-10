@@ -1,5 +1,6 @@
 package top.maplex.rayskillsystem.skill.tools.target
 
+import ink.ptms.adyeshach.common.util.RayTrace
 import org.bukkit.entity.LivingEntity
 import taboolib.module.effect.ParticleSpawner
 import taboolib.module.effect.shape.Ray
@@ -20,8 +21,18 @@ object TargetSingle {
         tolerance: Double,
         filter: LivingEntity.() -> Boolean = { true },
     ): LivingEntity? {
-        val list = getLivingTargets(source, range, tolerance, filter)
-        return list.firstOrNull()
+        val world = source.world
+        world.rayTraceEntities(
+            source.eyeLocation,
+            source.eyeLocation.direction, range, tolerance
+        ) { entity ->
+            entity is LivingEntity && filter.invoke(entity)
+        }?.let {
+            it.hitEntity?.let { entity ->
+                return entity as LivingEntity
+            }
+        }
+        return null
     }
 
     fun getLivingTargets(
