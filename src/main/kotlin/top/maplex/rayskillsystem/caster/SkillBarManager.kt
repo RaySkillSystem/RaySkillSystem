@@ -8,6 +8,7 @@ import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerItemHeldEvent
 import taboolib.common.platform.Schedule
 import taboolib.common.platform.event.SubscribeEvent
+import top.maplex.rayskillsystem.RaySkillSystem
 import top.maplex.rayskillsystem.skill.SkillManager
 import top.maplex.rayskillsystem.utils.cooldown.CooldownAPI
 import top.maplex.rayskillsystem.utils.getInt
@@ -25,6 +26,10 @@ object SkillBarManager {
         Bukkit.getOnlinePlayers().forEach {
             update(it)
         }
+    }
+
+    fun enable(): Boolean {
+        return RaySkillSystem.config.getBoolean("SkillBar.enable", true)
     }
 
     fun update(player: Player) {
@@ -48,27 +53,6 @@ object SkillBarManager {
         }
     }
 
-    fun edit(player: Player) {
-//        val old = AbolethAPI.get(player.uniqueId, "快捷施法", "on")
-//        if (old == "on") {
-//            AbolethAPI.edit(player.uniqueId, "快捷施法", AbolethAction.SET, "off")
-//            player.sendToast(
-//                Material.BUCKET,
-//                "&c&l快捷施法已关闭",
-//                ToastFrame.CHALLENGE,
-//                ToastBackground.ADVENTURE
-//            )
-//        } else {
-//            AbolethAPI.edit(player.uniqueId, "快捷施法", AbolethAction.SET, "on")
-//            player.sendToast(
-//                Material.WATER_BUCKET,
-//                "&a&l快捷施法已开启",
-//                ToastFrame.CHALLENGE,
-//                ToastBackground.ADVENTURE
-//            )
-//        }
-    }
-
     @SubscribeEvent
     fun onRight(event: PlayerInteractEvent) {
         val item = event.item.ifAir() ?: return
@@ -90,9 +74,9 @@ object SkillBarManager {
         if (skillName == "null") {
             return
         }
-//        if (AbolethAPI.get(player.uniqueId, "快捷施法", "on") == "off") {
-//            return
-//        }
+        if (!enable()) {
+            return
+        }
         val skillLevel = item.getInt("RaySkill.level", 1)
         event.isCancelled = true
         SkillManager.eval(player, skillName, skillLevel)

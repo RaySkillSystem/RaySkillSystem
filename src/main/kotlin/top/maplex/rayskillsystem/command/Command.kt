@@ -22,19 +22,6 @@ object Command {
         createHelper()
     }
 
-    @CommandBody(permission = "rayskill.type")
-    val castType = subCommand {
-        player("target") {
-            execute<Player> { sender, context, argument ->
-                val player = Bukkit.getPlayer(context.player("target").uniqueId) ?: return@execute
-                SkillBarManager.edit(player)
-            }
-        }
-        execute<Player> { sender, context, argument ->
-            SkillBarManager.edit(sender)
-        }
-    }
-
 
     //rss cast Skill Target
     @CommandBody(permission = "rayskill.admin")
