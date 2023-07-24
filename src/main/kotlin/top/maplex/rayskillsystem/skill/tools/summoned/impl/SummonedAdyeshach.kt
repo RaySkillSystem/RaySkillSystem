@@ -24,7 +24,7 @@ open class SummonedAdyeshach(
 ) : SummonedEntity("adyeshach", master), Follow, Limited {
 
     val player by lazy {
-        Bukkit.getPlayer(master)
+        Bukkit.getEntity(master) as? LivingEntity
     }
 
     override fun attack(target: LivingEntity, value: Double): Boolean {

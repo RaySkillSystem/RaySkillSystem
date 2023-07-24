@@ -1,14 +1,13 @@
 package top.maplex.rayskillsystem.skill.tools.attribute
 
-import org.bukkit.entity.Player
-import top.maplex.rayskillsystem.skill.tools.team.TeamManager
+import org.bukkit.entity.LivingEntity
 import top.maplex.rayskillsystem.utils.toConsole
 
 interface AbstractAttribute {
 
     val name: String
 
-    fun getCooldown(player: Player): Double {
+    fun getCooldown(livingEntity: LivingEntity): Double {
         return 1.0
     }
 

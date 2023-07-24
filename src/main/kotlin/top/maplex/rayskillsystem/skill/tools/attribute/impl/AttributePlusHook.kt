@@ -1,6 +1,7 @@
 package top.maplex.rayskillsystem.skill.tools.attribute.impl
 
 import org.bukkit.Bukkit
+import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.serverct.ersha.AttributePlus
 import org.serverct.ersha.api.annotations.AutoRegister
@@ -32,8 +33,8 @@ object AttributePlusHook : AbstractAttribute {
         }
     }
 
-    override fun getCooldown(player: Player): Double {
-        val attribute = AttributePlus.attributeManager.getAttributeData(player)
+    override fun getCooldown(livingEntity: LivingEntity): Double {
+        val attribute = AttributePlus.attributeManager.getAttributeData(livingEntity)
         return attribute.getRandomValue(SKILL_COOLDOWN).toDouble()
     }
 

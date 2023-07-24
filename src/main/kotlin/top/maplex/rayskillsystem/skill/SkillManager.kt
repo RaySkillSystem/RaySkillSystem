@@ -1,5 +1,6 @@
 package top.maplex.rayskillsystem.skill
 
+import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import top.maplex.rayskillsystem.skill.tools.attribute.AttributeManager
 import top.maplex.rayskillsystem.utils.cooldown.CooldownAPI
@@ -11,44 +12,44 @@ object SkillManager {
 
     val skills = HashMap<String, AbstractSkill>()
 
-    fun eval(player: Player, name: String, level: Int, callBack: Consumer<AbstractSkill>): Boolean {
-        return eval(player, name, level) {
+    fun eval(livingEntity: LivingEntity, name: String, level: Int, callBack: Consumer<AbstractSkill>): Boolean {
+        return eval(livingEntity, name, level) {
             callBack.accept(this)
         }
     }
 
-    fun eval(player: Player, name: String, level: Int, callBack: AbstractSkill.() -> Unit = {}): Boolean {
+    fun eval(livingEntity: LivingEntity, name: String, level: Int, callBack: AbstractSkill.() -> Unit = {}): Boolean {
         val skill = getSkill(name) ?: return false
         if (skill.cooldown > 0) {
-            if (!CooldownAPI.check(player, "Skill_${name}")) {
-                val has = CooldownAPI.getTime(player, "Skill_${name}")
-                player.error("技能&f $name &7尚在冷却 &c(${has})")
+            if (!CooldownAPI.check(livingEntity, "Skill_${name}")) {
+                val has = CooldownAPI.getTime(livingEntity, "Skill_${name}")
+                livingEntity.error("技能&f $name &7尚在冷却 &c(${has})")
                 return false
             }
         }
-        if (!skill.onCondition(player, level)) {
+        if (!skill.onCondition(livingEntity, level)) {
             return false
         }
-        if (!skill.onPreRun(player, level)) {
+        if (!skill.onPreRun(livingEntity, level)) {
             return false
         }
-        if (!skill.onRun(player, level)) {
+        if (!skill.onRun(livingEntity, level)) {
             return false
         }
-        player.getNearbyEntities(30.0, 30.0, 30.0).forEach {
+        livingEntity.getNearbyEntities(30.0, 30.0, 30.0).forEach {
             if (it is Player) {
-                it.info("&f${player.name}&7 释放了技能 &f${skill.name}")
+                it.info("&f${ livingEntity.name}&7 释放了技能 &f${skill.name}")
             }
         }
-        player.info("&f${player.name}&7 释放了技能 &f${skill.name}")
-        if (!skill.onOver(player, level)) {
+        livingEntity.info("&f${livingEntity.name}&7 释放了技能 &f${skill.name}")
+        if (!skill.onOver(livingEntity, level)) {
             return false
         }
         if (skill.cooldown > 0) {
-            val cooldown = AttributeManager.attributes.getCooldown(player)
+            val cooldown = AttributeManager.attributes.getCooldown(livingEntity)
             val value = if (cooldown * 0.01 <= 0.3) 0.3 else cooldown * 0.01
             val newCooldown = (skill.cooldown - (skill.cooldown * value)).toLong()
-            CooldownAPI.set(player, "Skill_$name", newCooldown)
+            CooldownAPI.set(livingEntity, "Skill_$name", newCooldown)
         }
         callBack.invoke(skill)
         return true

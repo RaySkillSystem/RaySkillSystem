@@ -1,5 +1,6 @@
 package top.maplex.rayskillsystem.skill.impl
 
+import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import top.maplex.rayskillsystem.skill.AbstractSkill
 import top.maplex.rayskillsystem.skill.tools.team.TeamManager
@@ -14,13 +15,13 @@ object SkillTest : AbstractSkill {
     override val cooldown: Long = 3 * 20
 
 
-    override fun onCondition(player: Player, level: Int): Boolean {
+    override fun onCondition(livingEntity: LivingEntity, level: Int): Boolean {
         return true
     }
 
-    override fun onRun(player: Player, level: Int): Boolean {
-        val target = TargetRange.get(player, 10.0, false).filter {
-            !TeamManager.canAttack(player, it)
+    override fun onRun(livingEntity: LivingEntity, level: Int): Boolean {
+        TargetRange.get(livingEntity, 10.0, false).filter {
+            !TeamManager.canAttack(livingEntity, it)
         }.let {
             if (it.size >= 2) {
                 it.subList(0, 1)
