@@ -34,4 +34,10 @@ object Flag {
         }
     }
 
+    fun removeFlag(uuid: UUID, key: String) {
+        if (!FlagEndEvent(uuid, key).run().isCancelled) {
+            datas[uuid]?.remove(key)
+        }
+    }
+
 }

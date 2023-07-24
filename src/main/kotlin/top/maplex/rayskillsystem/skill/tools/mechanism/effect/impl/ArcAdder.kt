@@ -6,8 +6,20 @@ import taboolib.common.util.Location
 import taboolib.module.effect.shape.Arc
 import taboolib.platform.util.toBukkitLocation
 import java.util.UUID
+import java.util.function.Consumer
 import kotlin.math.cos
 import kotlin.math.sin
+
+object ArcAdder {
+
+    fun backShow(arc: Arc, action: Consumer<Location>, near: Consumer<LivingEntity>): Arc {
+        return arc.backShow({
+            action.accept(this)
+        }, {
+            near.accept(this)
+        })
+    }
+}
 
 fun Arc.backShow(action: Location.() -> Unit = {}, near: LivingEntity.() -> Unit = {}): Arc {
     var i = startAngle

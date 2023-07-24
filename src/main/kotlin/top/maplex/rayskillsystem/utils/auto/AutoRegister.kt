@@ -6,6 +6,9 @@ import taboolib.common.platform.Awake
 
 object AutoRegister {
 
+    /**
+     * 自动注册注解
+     */
     @Awake(LifeCycle.ACTIVE)
     fun eval() {
         runningClasses.forEach { clazz ->
@@ -13,8 +16,10 @@ object AutoRegister {
                 val function = clazz.getMethod("register")
                 function.isAccessible = true
 
-                val target =
-                function.invoke(clazz.newInstance())
+                val target = clazz.getDeclaredConstructor()
+                target.isAccessible = true
+                val instance = target.newInstance()
+                function.invoke(instance)
             }
         }
     }

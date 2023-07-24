@@ -7,7 +7,38 @@ import taboolib.common.util.Location
 import taboolib.module.effect.shape.Ray
 import taboolib.platform.util.toBukkitLocation
 import java.util.*
+import java.util.function.Consumer
 
+object RayAdder {
+    fun backShow(
+        ray: Ray,
+        //是否可以穿墙 true 则不可以
+        wall: Boolean = true,
+        //动画播放速度
+        period: Long = 0L,
+        //每一帧的步长
+        stepTick: Int = 1,
+        //播放时执行
+        action: Consumer<Location>,
+        //碰到实体后执行
+        near: Consumer<LivingEntity>,
+        //结束时执行
+        over: Consumer<Any>,
+    ): Ray {
+        return ray.backShow(wall, period, stepTick, {
+            action.accept(this)
+        }, {
+            near.accept(this)
+        }, {
+            over.accept(this)
+        })
+    }
+
+    fun getEntity(ray: Ray, tolerance: Double): MutableList<LivingEntity> {
+        return ray.getEntity(tolerance)
+    }
+
+}
 
 fun Ray.backShow(
     //是否可以穿墙 true 则不可以

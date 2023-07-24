@@ -10,7 +10,7 @@ import taboolib.module.effect.ParticleSpawner
 import taboolib.module.effect.Playable
 import taboolib.platform.util.toBukkitLocation
 
-abstract class EffectMissile(
+class EffectMissile(
     var start: Location,
     var end: Location,
     var step: Double,
@@ -28,6 +28,10 @@ abstract class EffectMissile(
 
     init {
         resetVector()
+    }
+
+    override fun calculateLocations(): List<Location> {
+        return listOf()
     }
 
     override fun show() {

@@ -10,10 +10,6 @@ import top.maplex.rayskillsystem.utils.auto.RaySkillSystem
 @RaySkillSystem
 object SkillZhao : AbstractSkill {
 
-    fun onEnable() {
-        register()
-    }
-
     override val name: String = "测试召唤"
 
     override val type: String = "无"

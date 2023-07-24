@@ -7,23 +7,25 @@ import org.bukkit.entity.Player
 import taboolib.common.util.Location
 import taboolib.platform.util.toBukkitLocation
 
-fun getLooker(location: Location): List<Player> {
-    return Bukkit.getOnlinePlayers().filter { it.location.world?.name == (location.world ?: "") }
-}
+object EffectTools {
+    fun getLooker(location: Location): List<Player> {
+        return Bukkit.getOnlinePlayers().filter { it.location.world?.name == (location.world ?: "") }
+    }
 
-fun spawnColor(count: Int, loc: Location, R: Int, G: Int, B: Int, size: Float) {
-    loc.toBukkitLocation().world?.spawnParticle(
-        Particle.REDSTONE,
-        loc.toBukkitLocation(),
-        count,
-        Particle.DustOptions(Color.fromRGB(R, G, B), size)
-    )
-}
+    fun spawnColor(count: Int, loc: Location, R: Int, G: Int, B: Int, size: Float) {
+        loc.toBukkitLocation().world?.spawnParticle(
+            Particle.REDSTONE,
+            loc.toBukkitLocation(),
+            count,
+            Particle.DustOptions(Color.fromRGB(R, G, B), size)
+        )
+    }
 
-fun spawnColor(count: Int, loc: Location, type: Particle) {
-    loc.toBukkitLocation().world?.spawnParticle(
-        type,
-        loc.toBukkitLocation(),
-        count,
-    )
+    fun spawnColor(count: Int, loc: Location, type: Particle) {
+        loc.toBukkitLocation().world?.spawnParticle(
+            type,
+            loc.toBukkitLocation(),
+            count,
+        )
+    }
 }
