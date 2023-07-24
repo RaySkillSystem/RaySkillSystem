@@ -38,10 +38,7 @@ object CooldownAPI {
         val mapKey = "${player.uniqueId}__${key}"
         val get = map.getOrDefault(mapKey, -1L)
         val nowTime = System.currentTimeMillis()
-        if (get <= nowTime) {
-            return true
-        }
-        return false
+        return get <= nowTime
     }
 
     fun set(player: Player, key: String, tick: Long): Boolean {

@@ -5,10 +5,17 @@ import top.maplex.rayskillsystem.skill.tools.attribute.AttributeManager
 import top.maplex.rayskillsystem.utils.cooldown.CooldownAPI
 import top.maplex.rayskillsystem.utils.error
 import top.maplex.rayskillsystem.utils.info
+import java.util.function.Consumer
 
 object SkillManager {
 
     val skills = HashMap<String, AbstractSkill>()
+
+    fun eval(player: Player, name: String, level: Int, callBack: Consumer<AbstractSkill>): Boolean {
+        return eval(player, name, level) {
+            callBack.accept(this)
+        }
+    }
 
     fun eval(player: Player, name: String, level: Int, callBack: AbstractSkill.() -> Unit = {}): Boolean {
         val skill = getSkill(name) ?: return false
