@@ -3,14 +3,13 @@ package top.maplex.rayskillsystem.skill.impl
 import ink.ptms.adyeshach.core.Adyeshach
 import ink.ptms.adyeshach.core.entity.EntityTypes
 import org.bukkit.entity.Player
-import taboolib.common.LifeCycle
-import taboolib.common.platform.Awake
 import top.maplex.rayskillsystem.skill.AbstractSkill
 import top.maplex.rayskillsystem.skill.tools.summoned.impl.SummonedAdyeshach
+import top.maplex.rayskillsystem.utils.auto.RaySkillSystem
 
+@RaySkillSystem
 object SkillZhao : AbstractSkill {
 
-    @Awake(LifeCycle.LOAD)
     fun onEnable() {
         register()
     }

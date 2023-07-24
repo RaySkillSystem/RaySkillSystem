@@ -2,18 +2,12 @@ package top.maplex.rayskillsystem.caster
 
 import github.saukiya.sxitem.event.SXItemSpawnEvent
 import org.bukkit.Bukkit
-import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerItemHeldEvent
-import ray.mintcat.aboleth.api.AbolethAPI
-import ray.mintcat.aboleth.api.AbolethAction
 import taboolib.common.platform.Schedule
 import taboolib.common.platform.event.SubscribeEvent
-import taboolib.module.nms.sendToast
-import taboolib.module.nms.type.ToastBackground
-import taboolib.module.nms.type.ToastFrame
 import top.maplex.rayskillsystem.skill.SkillManager
 import top.maplex.rayskillsystem.utils.cooldown.CooldownAPI
 import top.maplex.rayskillsystem.utils.getInt
@@ -55,24 +49,24 @@ object SkillBarManager {
     }
 
     fun edit(player: Player) {
-        val old = AbolethAPI.get(player.uniqueId, "快捷施法", "on")
-        if (old == "on") {
-            AbolethAPI.edit(player.uniqueId, "快捷施法", AbolethAction.SET, "off")
-            player.sendToast(
-                Material.BUCKET,
-                "&c&l快捷施法已关闭",
-                ToastFrame.CHALLENGE,
-                ToastBackground.ADVENTURE
-            )
-        } else {
-            AbolethAPI.edit(player.uniqueId, "快捷施法", AbolethAction.SET, "on")
-            player.sendToast(
-                Material.WATER_BUCKET,
-                "&a&l快捷施法已开启",
-                ToastFrame.CHALLENGE,
-                ToastBackground.ADVENTURE
-            )
-        }
+//        val old = AbolethAPI.get(player.uniqueId, "快捷施法", "on")
+//        if (old == "on") {
+//            AbolethAPI.edit(player.uniqueId, "快捷施法", AbolethAction.SET, "off")
+//            player.sendToast(
+//                Material.BUCKET,
+//                "&c&l快捷施法已关闭",
+//                ToastFrame.CHALLENGE,
+//                ToastBackground.ADVENTURE
+//            )
+//        } else {
+//            AbolethAPI.edit(player.uniqueId, "快捷施法", AbolethAction.SET, "on")
+//            player.sendToast(
+//                Material.WATER_BUCKET,
+//                "&a&l快捷施法已开启",
+//                ToastFrame.CHALLENGE,
+//                ToastBackground.ADVENTURE
+//            )
+//        }
     }
 
     @SubscribeEvent
@@ -96,9 +90,9 @@ object SkillBarManager {
         if (skillName == "null") {
             return
         }
-        if (AbolethAPI.get(player.uniqueId, "快捷施法", "on") == "off") {
-            return
-        }
+//        if (AbolethAPI.get(player.uniqueId, "快捷施法", "on") == "off") {
+//            return
+//        }
         val skillLevel = item.getInt("RaySkill.level", 1)
         event.isCancelled = true
         SkillManager.eval(player, skillName, skillLevel)

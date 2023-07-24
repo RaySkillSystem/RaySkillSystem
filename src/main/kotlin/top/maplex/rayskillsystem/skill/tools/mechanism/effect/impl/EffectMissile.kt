@@ -10,7 +10,7 @@ import taboolib.module.effect.ParticleSpawner
 import taboolib.module.effect.Playable
 import taboolib.platform.util.toBukkitLocation
 
-class EffectMissile(
+abstract class EffectMissile(
     var start: Location,
     var end: Location,
     var step: Double,

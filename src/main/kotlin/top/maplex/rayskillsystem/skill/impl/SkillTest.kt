@@ -9,7 +9,6 @@ import top.maplex.rayskillsystem.skill.tools.target.TargetRange
 
 object SkillTest : AbstractSkill {
 
-    @Awake(LifeCycle.LOAD)
     fun onEnable() {
         register()
     }
