@@ -17,6 +17,7 @@ taboolib {
     install("module-configuration")
     install("platform-bukkit")
     install("expansion-command-helper")
+    relocate("ink.ptms.um","top.maplex.rayskillsystem.um")
     classifier = null
     version = "6.0.11-27"
 }
@@ -26,6 +27,7 @@ repositories {
 }
 
 dependencies {
+    taboo("ink.ptms:um:1.0.0-beta-30")
     compileOnly("ink.ptms:nms-all:1.0.0")
     compileOnly("ink.ptms.core:v11902:11902-minimize:mapped")
     compileOnly("ink.ptms.core:v11902:11902-minimize:universal")

@@ -1,33 +1,25 @@
 package top.maplex.rayskillsystem.utils
 
-import io.lumine.mythic.api.MythicProvider
-import io.lumine.mythic.bukkit.MythicBukkit
+import ink.ptms.um.Mythic
 import org.bukkit.entity.Entity
 import org.bukkit.entity.LivingEntity
-import org.bukkit.entity.Player
 
 object MythicMobsUtils {
 
-    val api by lazy {
-        MythicProvider.get() as MythicBukkit
-    }
-
     fun isMythicMob(entity: Entity): Boolean {
-        return api.apiHelper.isMythicMob(entity)
+        return Mythic.API.getMob(entity) != null
     }
 
-    fun castSkill(caster: Player, skill: String) {
-        api.apiHelper.castSkill(caster, skill, caster.location, 1F)
-    }
 
     fun taunt(target: LivingEntity, source: LivingEntity, amount: Double) {
-        if (target == source || !isMythicMob(target)) {
+        if (target == source) {
             return
         }
+        val mob = Mythic.API.getMob(target) ?: return
         if (amount > 0) {
-            api.apiHelper.addThreat(target, source, amount)
+            mob.addThreat(target, source, amount)
         } else if (amount < 0) {
-            api.apiHelper.reduceThreat(target, source, -amount)
+            mob.reduceThreat(target, source, -amount)
         }
     }
 }
