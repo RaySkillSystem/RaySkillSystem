@@ -24,14 +24,19 @@ interface AbstractSkill {
         }
     }
 
+    //施法条件
     fun onCondition(player: Player, level: Int): Boolean = true
 
+    //运行前执行
     fun onPreRun(player: Player, level: Int): Boolean = true
 
+    //运行代码
     fun onRun(player: Player, level: Int): Boolean = true
 
+    //运行后执行
     fun onOver(player: Player, level: Int): Boolean = true
 
+    //注册
     fun register() {
         SkillManager.skills[name] = this
         toConsole("注册技能:&f $name")

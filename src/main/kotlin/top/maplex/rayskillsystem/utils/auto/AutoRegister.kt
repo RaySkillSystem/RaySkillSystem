@@ -8,9 +8,13 @@ object AutoRegister {
 
     @Awake(LifeCycle.ACTIVE)
     fun eval() {
-        runningClasses.forEach {
-            if (it.isAnnotationPresent(RaySkillSystem::class.java)) {
-                it.getDeclaredMethod("register").invoke(null)
+        runningClasses.forEach { clazz ->
+            if (clazz.isAnnotationPresent(RaySkillSystem::class.java)) {
+                val function = clazz.getMethod("register")
+                function.isAccessible = true
+
+                val target =
+                function.invoke(clazz.newInstance())
             }
         }
     }
