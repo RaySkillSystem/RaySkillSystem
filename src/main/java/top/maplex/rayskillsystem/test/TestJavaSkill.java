@@ -5,9 +5,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import top.maplex.rayskillsystem.skill.AbstractSkill;
+import top.maplex.rayskillsystem.skill.tools.mechanism.effect.impl.RayAdder;
+import top.maplex.rayskillsystem.skill.tools.mechanism.effect.impl.RayAdderKt;
 import top.maplex.rayskillsystem.utils.auto.RaySkillSystem;
 
-@RaySkillSystem
+import java.util.function.Consumer;
+
+//@RaySkillSystem
 public class TestJavaSkill implements AbstractSkill {
     @NotNull
     @Override
@@ -22,13 +26,13 @@ public class TestJavaSkill implements AbstractSkill {
     }
 
     @Override
-    public long getCooldown() {
+    public long getCooldown(@NotNull LivingEntity livingEntity) {
         return 100;
     }
 
     @Override
     public boolean onCondition(@NotNull LivingEntity livingEntity, int level) {
-        if (livingEntity instanceof Player && ((Player)livingEntity).getLevel() >= 20) {
+        if (livingEntity instanceof Player && ((Player) livingEntity).getLevel() >= 20) {
             return true;
         } else {
             livingEntity.sendMessage("你的等级无法施展如此高深的技能");

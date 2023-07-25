@@ -1,17 +1,24 @@
 package top.maplex.rayskillsystem.skill.tools.mechanism.effect.impl
 
+import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.entity.LivingEntity
 import taboolib.common.platform.function.submit
-import taboolib.common.util.Location
+import taboolib.common.util.Vector
+import taboolib.module.effect.createRay
 import taboolib.module.effect.shape.Ray
 import taboolib.platform.util.toBukkitLocation
+import taboolib.platform.util.toProxyLocation
 import java.util.*
 import java.util.function.Consumer
 
 object RayAdder {
     fun backShow(
-        ray: Ray,
+        origin: Location,
+        maxLength: Double,
+        step: Double,
+        range: Double = 0.5,
+        spawner: Consumer<Location>,
         //是否可以穿墙 true 则不可以
         wall: Boolean = true,
         //动画播放速度
@@ -19,19 +26,30 @@ object RayAdder {
         //每一帧的步长
         stepTick: Int = 1,
         //播放时执行
-        action: Consumer<Location>,
+        action: Consumer<Location> = Consumer { },
         //碰到实体后执行
-        near: Consumer<LivingEntity>,
+        near: Consumer<LivingEntity> = Consumer { },
         //结束时执行
-        over: Consumer<Any>,
-    ): Ray {
-        return ray.backShow(wall, period, stepTick, {
+        over: Consumer<Any> = Consumer { },
+        outTime: Long = 10000L,
+    ) {
+        val mark = System.currentTimeMillis() + outTime
+        createRay(origin.toProxyLocation(), origin.toProxyLocation().direction, maxLength, step, range, Ray.RayStopType.MAX_LENGTH, period) {
+            spawner.accept(it.toBukkitLocation())
+        }.backShow(wall, period, stepTick, {
             action.accept(this)
         }, {
             near.accept(this)
         }, {
             over.accept(this)
         })
+        submit(period = 20) {
+            if (System.currentTimeMillis() > mark) {
+                over.accept(this)
+                cancel()
+            }
+        }
+
     }
 
     fun getEntity(ray: Ray, tolerance: Double): MutableList<LivingEntity> {
@@ -67,7 +85,7 @@ fun Ray.backShow(
             val vectorTemp = direction.clone().multiply(i)
             val spawnLocation = origin.clone().add(vectorTemp)
             spawnParticle(spawnLocation)
-            action.invoke(spawnLocation)
+            action.invoke(spawnLocation.toBukkitLocation())
             //每一帧只会给一个目标造成一次伤害
             if (wall && spawnLocation.toBukkitLocation().block.type != Material.AIR) {
                 over.invoke()

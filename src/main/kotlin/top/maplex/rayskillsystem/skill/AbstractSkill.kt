@@ -13,7 +13,9 @@ interface AbstractSkill {
 
     val type: String
 
-    val cooldown: Long
+    fun getCooldown(livingEntity: LivingEntity, level: Int): Long {
+        return 0
+    }
 
     fun showItem(livingEntity: LivingEntity, level: Int): ItemStack {
         return buildItem(Material.PAPER) {

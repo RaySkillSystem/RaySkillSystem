@@ -6,13 +6,16 @@ import top.maplex.rayskillsystem.skill.AbstractSkill
 import top.maplex.rayskillsystem.skill.tools.team.TeamManager
 import top.maplex.rayskillsystem.skill.tools.target.TargetRange
 
+//@RaySkillSystem
 object SkillTest : AbstractSkill {
 
     override val name: String = "测试"
 
     override val type: String = "无"
 
-    override val cooldown: Long = 3 * 20
+    override fun getCooldown(livingEntity: LivingEntity, level: Int): Long {
+        return 3 * 20
+    }
 
 
     override fun onCondition(livingEntity: LivingEntity, level: Int): Boolean {

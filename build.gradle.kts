@@ -17,7 +17,9 @@ taboolib {
     install("module-configuration")
     install("platform-bukkit")
     install("expansion-command-helper")
+    install("expansion-javascript")
     relocate("ink.ptms.um","top.maplex.rayskillsystem.um")
+    relocate("top.maplex.rayskillsystem.taboolib.module.effect","taboolib.module.effect")
     classifier = null
     version = "6.0.11-27"
 }
@@ -31,6 +33,7 @@ dependencies {
     compileOnly("ink.ptms:nms-all:1.0.0")
     compileOnly("ink.ptms.core:v11902:11902-minimize:mapped")
     compileOnly("ink.ptms.core:v11902:11902-minimize:universal")
+    compileOnly("org.openjdk.nashorn:nashorn-core:15.3")
     compileOnly(kotlin("stdlib"))
     compileOnly(fileTree("libs"))
 }

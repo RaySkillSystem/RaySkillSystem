@@ -1,2 +1,4 @@
 SkillBar:
   enable: true
+ScriptLib:
+#  "TEST": "包名"

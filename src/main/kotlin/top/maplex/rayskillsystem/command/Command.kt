@@ -1,17 +1,12 @@
 package top.maplex.rayskillsystem.command
 
 import org.bukkit.Bukkit
-import org.bukkit.Material
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import taboolib.common.platform.command.*
 import taboolib.expansion.createHelper
-import taboolib.module.chat.colored
-import taboolib.module.nms.sendToast
-import taboolib.module.nms.type.ToastBackground
-import taboolib.module.nms.type.ToastFrame
 import taboolib.platform.util.giveItem
-import top.maplex.rayskillsystem.caster.SkillBarManager
+import top.maplex.rayskillsystem.api.reader.ScriptReaderManager
 import top.maplex.rayskillsystem.skill.SkillManager
 
 @CommandHeader("RaySkillSystem", aliases = ["rss"], permission = "rayskill.use")
@@ -66,12 +61,16 @@ object Command {
 
     @CommandBody(permission = "rayskill.admin")
     val test = subCommand {
-        execute<Player> { sender, context, argument ->
-            sender.sendToast(
-                Material.APPLE,
-                "&a乱撒清荷&f (8s)\n&e持续期间炼化元素无冷却".colored(),
-                ToastFrame.TASK, ToastBackground.END
-            )
+        execute<CommandSender> { sender, context, argument ->
+
+        }
+    }
+
+    @CommandBody(permission = "rayskill.admin")
+    val reload = subCommand {
+        execute<CommandSender> { sender, context, argument ->
+            ScriptReaderManager.scriptManager.reload()
+            ScriptReaderManager.readAll()
         }
     }
 
