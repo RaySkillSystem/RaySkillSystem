@@ -26,7 +26,7 @@ public class TestJavaSkill implements AbstractSkill {
     }
 
     @Override
-    public long getCooldown(@NotNull LivingEntity livingEntity) {
+    public long getCooldown(@NotNull LivingEntity livingEntity, int level) {
         return 100;
     }
 
