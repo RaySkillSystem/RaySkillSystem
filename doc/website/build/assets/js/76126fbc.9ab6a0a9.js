@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkwebsite=self.webpackChunkwebsite||[]).push([[583],{5710:e=>{e.exports=JSON.parse('{"label":"hola","permalink":"/RaySkillSystem/blog/tags/hola","allTagsPath":"/RaySkillSystem/blog/tags","count":1}')}}]);
