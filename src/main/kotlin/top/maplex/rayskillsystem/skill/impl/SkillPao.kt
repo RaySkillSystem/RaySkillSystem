@@ -4,8 +4,9 @@ import ink.ptms.adyeshach.core.Adyeshach
 import org.bukkit.entity.LivingEntity
 import top.maplex.rayskillsystem.skill.AbstractSkill
 import top.maplex.rayskillsystem.skill.tools.mechanism.effect.impl.RayAdder
+import top.maplex.rayskillsystem.utils.auto.RaySkillSystem
 
-//@RaySkillSystem
+@RaySkillSystem
 object SkillPao : AbstractSkill {
 
     override val name: String = "测试抛射物"

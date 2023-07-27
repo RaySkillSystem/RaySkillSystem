@@ -5,13 +5,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import top.maplex.rayskillsystem.skill.AbstractSkill;
-import top.maplex.rayskillsystem.skill.tools.mechanism.effect.impl.RayAdder;
-import top.maplex.rayskillsystem.skill.tools.mechanism.effect.impl.RayAdderKt;
 import top.maplex.rayskillsystem.utils.auto.RaySkillSystem;
 
-import java.util.function.Consumer;
-
-//@RaySkillSystem
+@RaySkillSystem
 public class TestJavaSkill implements AbstractSkill {
     @NotNull
     @Override
