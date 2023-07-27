@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import taboolib.common5.Baffle
 import taboolib.module.chat.colored
+import top.maplex.rayskillsystem.RaySkillSystem
 
 /**
  * LoggerUtils
@@ -13,7 +14,6 @@ import taboolib.module.chat.colored
  * @Time 2022/1/26
  * @since 1.0
  */
-
 
 
 /**
@@ -40,6 +40,7 @@ fun Player.error(vararg block: String) {
         toError(this, it)
     }
 }
+
 fun CommandSender.error(vararg block: String) {
     block.forEach {
         toError(this, it)
@@ -67,7 +68,7 @@ fun debug(vararg block: String) {
  * 发送信息
  */
 fun toInfo(sender: CommandSender, message: String) {
-    sender.sendMessage("§8[§a 一隅烂柯 §8] §7${message.colored()}")
+    sender.sendMessage("§8[§a RaySkillSystem §8] §7${message.colored()}")
     if (sender is Player && !cooldown.hasNext(sender.name)) {
         sender.playSound(sender.location, Sound.UI_BUTTON_CLICK, 1f, (1..2).random().toFloat())
     }
@@ -77,7 +78,7 @@ fun toInfo(sender: CommandSender, message: String) {
  * 发送信息
  */
 fun toError(sender: CommandSender, message: String) {
-    sender.sendMessage("§8[§4 一隅烂柯 §8] §7${message.colored()}")
+    sender.sendMessage("§8[§4 RaySkillSystem §8] §7${message.colored()}")
     if (sender is Player && !cooldown.hasNext(sender.name)) {
         sender.playSound(sender.location, Sound.ENTITY_VILLAGER_NO, 1f, (1..2).random().toFloat())
     }
@@ -87,7 +88,7 @@ fun toError(sender: CommandSender, message: String) {
  * 发送信息
  */
 fun toDone(sender: CommandSender, message: String) {
-    sender.sendMessage("§8[§6 一隅烂柯 §8] §7${message.colored()}")
+    sender.sendMessage("§8[§6 RaySkillSystem §8] §7${message.colored()}")
     if (sender is Player && !cooldown.hasNext(sender.name)) {
         sender.playSound(sender.location, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, (1..2).random().toFloat())
     }
@@ -97,7 +98,13 @@ fun toDone(sender: CommandSender, message: String) {
  * 发送信息到后台
  */
 fun toConsole(message: String) {
-    Bukkit.getConsoleSender().sendMessage("§8[§e 一隅烂柯 §8] §7${message.colored()}")
+    Bukkit.getConsoleSender().sendMessage("§8[§e RaySkillSystem §8] §7${message.colored()}")
+}
+
+fun toConsole(message: String, logger: Boolean = false) {
+    if (logger && RaySkillSystem.config.getBoolean("Logger")) {
+        toConsole(message)
+    }
 }
 
 /**

@@ -62,6 +62,6 @@ interface AbstractBuff {
 
     fun register() {
         BuffManager.buffs[id] = this
-        toConsole("注册效果:&f $name")
+        toConsole("注册效果:&f $name", true)
     }
 }

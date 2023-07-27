@@ -1,9 +1,11 @@
 package top.maplex.rayskillsystem.skill.tools.target
 
 import org.bukkit.entity.LivingEntity
+import top.maplex.rayskillsystem.api.script.auto.InputEngine
 import kotlin.math.cos
 import kotlin.math.pow
 
+@InputEngine("TargetCone")
 object TargetCone {
 
     /**

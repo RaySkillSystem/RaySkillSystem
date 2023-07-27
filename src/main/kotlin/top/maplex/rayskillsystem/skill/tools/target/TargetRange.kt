@@ -2,7 +2,9 @@ package top.maplex.rayskillsystem.skill.tools.target
 
 import org.bukkit.Location
 import org.bukkit.entity.LivingEntity
+import top.maplex.rayskillsystem.api.script.auto.InputEngine
 
+@InputEngine("TargetRange")
 object TargetRange {
 
     /**

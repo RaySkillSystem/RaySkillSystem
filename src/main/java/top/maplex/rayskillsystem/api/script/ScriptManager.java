@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import taboolib.library.configuration.ConfigurationSection;
 import top.maplex.rayskillsystem.RaySkillSystem;
+import top.maplex.rayskillsystem.api.script.auto.InputEngineImpl;
 
 import javax.script.*;
 import java.io.File;
@@ -77,6 +78,7 @@ public class ScriptManager {
         engine.put("Bukkit", method.invoke(null, Bukkit.class));
         engine.put("Arrays", method.invoke(null, Arrays.class));
         engine.put("Utils", method.invoke(null, Utils.class));
+        InputEngineImpl.INSTANCE.getList().forEach(engine::put);
         compilableEngine = (Compilable) engine;
         invocable = (Invocable) engine;
         compiledScripts.clear();

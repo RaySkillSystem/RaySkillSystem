@@ -4,6 +4,7 @@ import org.bukkit.Material
 import org.bukkit.entity.LivingEntity
 import org.bukkit.inventory.ItemStack
 import taboolib.platform.util.buildItem
+import top.maplex.rayskillsystem.RaySkillSystem
 import top.maplex.rayskillsystem.utils.set
 import top.maplex.rayskillsystem.utils.toConsole
 
@@ -41,7 +42,7 @@ interface AbstractSkill {
     //注册
     fun register() {
         SkillManager.skills[name] = this
-        toConsole("注册技能:&f $name")
+        toConsole("注册技能:&f $name", true)
     }
 
 }

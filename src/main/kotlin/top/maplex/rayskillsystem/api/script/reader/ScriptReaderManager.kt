@@ -1,10 +1,11 @@
-package top.maplex.rayskillsystem.api.reader
+package top.maplex.rayskillsystem.api.script.reader
 
 import taboolib.common.LifeCycle
 import taboolib.common.platform.Awake
 import top.maplex.rayskillsystem.RaySkillSystem
 import top.maplex.rayskillsystem.api.script.ScriptManager
 import top.maplex.rayskillsystem.api.script.ScriptSkillImpl
+import top.maplex.rayskillsystem.utils.toConsole
 
 
 object ScriptReaderManager {
@@ -19,6 +20,7 @@ object ScriptReaderManager {
 
     @Awake(LifeCycle.ACTIVE)
     fun readAll() {
+        toConsole("开始预编译JavaScript脚本",true)
         scriptManager.compiledScripts.forEach { t, u ->
             scriptManager.getVariable(t, "script_type")?.let {
                 when (it as String) {

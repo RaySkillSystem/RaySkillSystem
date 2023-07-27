@@ -6,7 +6,7 @@ import org.bukkit.entity.Player
 import taboolib.common.platform.command.*
 import taboolib.expansion.createHelper
 import taboolib.platform.util.giveItem
-import top.maplex.rayskillsystem.api.reader.ScriptReaderManager
+import top.maplex.rayskillsystem.api.script.reader.ScriptReaderManager
 import top.maplex.rayskillsystem.skill.SkillManager
 
 @CommandHeader("RaySkillSystem", aliases = ["rss"], permission = "rayskill.use")

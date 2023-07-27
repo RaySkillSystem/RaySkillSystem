@@ -9,7 +9,7 @@ interface AbstractTeam {
 
     fun register() {
         TeamManager.team = this
-        toConsole("队伍系统由 $name 进行接管！")
+        toConsole("队伍系统由 $name 进行接管！", true)
     }
 
     /**

@@ -1,7 +1,7 @@
 package top.maplex.rayskillsystem.api.script
 
 import org.bukkit.entity.LivingEntity
-import top.maplex.rayskillsystem.api.reader.ScriptReaderManager
+import top.maplex.rayskillsystem.api.script.reader.ScriptReaderManager
 import top.maplex.rayskillsystem.skill.AbstractSkill
 
 data class ScriptSkillImpl(

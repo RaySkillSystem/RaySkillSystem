@@ -1,12 +1,13 @@
 package top.maplex.rayskillsystem.skill.tools.target
 
-import ink.ptms.adyeshach.common.util.RayTrace
 import org.bukkit.entity.LivingEntity
 import taboolib.module.effect.ParticleSpawner
 import taboolib.module.effect.shape.Ray
 import taboolib.platform.util.toProxyLocation
+import top.maplex.rayskillsystem.api.script.auto.InputEngine
 import top.maplex.rayskillsystem.skill.tools.mechanism.effect.impl.getEntity
 
+@InputEngine("TargetSingle")
 object TargetSingle {
 
     /**

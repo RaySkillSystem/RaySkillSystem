@@ -1,3 +1,4 @@
+Logger: false
 SkillBar:
   enable: true
 ScriptLib:

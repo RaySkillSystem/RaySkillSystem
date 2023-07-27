@@ -13,7 +13,7 @@ interface AbstractAttribute {
 
     fun register() {
         AttributeManager.attributes = this
-        toConsole("属性系统由 $name 进行接管！")
+        toConsole("属性系统由 $name 进行接管！",true)
     }
 
 }
