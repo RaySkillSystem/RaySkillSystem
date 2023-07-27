@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# AOE
+# AOE伤害技能-友军判断
 
 ### 对范围的所有人造成伤害 自己除外
 
@@ -10,18 +10,18 @@ sidebar_position: 1
 var script_type = "Skill";
 
 function getCooldown(livingEntity, level) {
-  return 20;
+    return 20;
 }
 
 function onRun(livingEntity, level) {
-  var array = TargetRange.get(livingEntity, 10.0, false);
-  array.forEach(function (target) {
-    if (target != null) {
-      Damage.damage(livingEntity, target, 10);
-    }
-  });
+    var array = TargetRange.get(livingEntity, 10.0, false);
+    array.forEach(function (target) {
+        if (target != null) {
+            Damage.damage(livingEntity, target, 10);
+        }
+    });
 
-  return true;
+    return true;
 }
 
 ```

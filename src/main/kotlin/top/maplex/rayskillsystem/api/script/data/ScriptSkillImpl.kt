@@ -1,4 +1,4 @@
-package top.maplex.rayskillsystem.api.script
+package top.maplex.rayskillsystem.api.script.data
 
 import org.bukkit.entity.LivingEntity
 import top.maplex.rayskillsystem.api.script.reader.ScriptReaderManager
