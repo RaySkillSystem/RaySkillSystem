@@ -4,11 +4,13 @@ import org.bukkit.Bukkit
 import org.bukkit.entity.Entity
 import org.bukkit.entity.LivingEntity
 import taboolib.common.platform.Schedule
+import top.maplex.rayskillsystem.api.script.auto.InputEngine
 import top.maplex.rayskillsystem.skill.tools.buff.event.BuffAddEvent
 import top.maplex.rayskillsystem.skill.tools.buff.event.BuffRemoveEvent
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
+@InputEngine("Buff")
 object BuffManager {
 
 

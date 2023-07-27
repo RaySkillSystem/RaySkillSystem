@@ -102,7 +102,7 @@ fun toConsole(message: String) {
 }
 
 fun toConsole(message: String, logger: Boolean = false) {
-    if (logger && RaySkillSystem.config.getBoolean("Logger")) {
+    if (logger && RaySkillSystem.config.getBoolean("Logger",true)) {
         toConsole(message)
     }
 }

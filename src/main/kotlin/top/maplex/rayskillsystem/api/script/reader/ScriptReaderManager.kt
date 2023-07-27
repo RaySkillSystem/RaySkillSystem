@@ -14,10 +14,6 @@ object ScriptReaderManager {
         ScriptManager(RaySkillSystem.plugin, "script/default.js")
     }
 
-    fun reload() {
-        scriptManager.reload()
-    }
-
     @Awake(LifeCycle.ACTIVE)
     fun readAll() {
         toConsole("开始预编译JavaScript脚本",true)

@@ -3,9 +3,11 @@ package top.maplex.rayskillsystem.skill.tools.mechanism.flag
 import top.maplex.rayskillsystem.skill.tools.mechanism.flag.event.FlagAddEvent
 import top.maplex.rayskillsystem.skill.tools.mechanism.flag.event.FlagEndEvent
 import taboolib.common.platform.Schedule
+import top.maplex.rayskillsystem.api.script.auto.InputEngine
 import java.util.UUID
 import java.util.concurrent.ConcurrentHashMap
 
+@InputEngine("Flag")
 object Flag {
 
     val datas = ConcurrentHashMap<UUID, MutableMap<String, Long>>()

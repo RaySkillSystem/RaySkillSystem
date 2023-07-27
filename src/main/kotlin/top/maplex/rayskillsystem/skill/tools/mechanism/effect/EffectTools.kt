@@ -6,7 +6,9 @@ import org.bukkit.Particle
 import org.bukkit.entity.Player
 import taboolib.common.util.Location
 import taboolib.platform.util.toBukkitLocation
+import top.maplex.rayskillsystem.api.script.auto.InputEngine
 
+@InputEngine("EffectSender")
 object EffectTools {
     fun getLooker(location: Location): List<Player> {
         return Bukkit.getOnlinePlayers().filter { it.location.world?.name == (location.world ?: "") }

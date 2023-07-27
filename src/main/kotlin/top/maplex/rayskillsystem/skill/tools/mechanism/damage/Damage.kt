@@ -3,9 +3,11 @@ package top.maplex.rayskillsystem.skill.tools.mechanism.damage
 import org.bukkit.attribute.Attribute
 import org.bukkit.entity.Creature
 import org.bukkit.entity.LivingEntity
+import top.maplex.rayskillsystem.api.script.auto.InputEngine
 import top.maplex.rayskillsystem.skill.tools.team.TeamManager
 import top.maplex.rayskillsystem.utils.MythicMobsUtils
 
+@InputEngine("Damage")
 object Damage {
 
     fun taunt(damager: LivingEntity, target: List<LivingEntity>, value: Double) {

@@ -2,7 +2,9 @@ package top.maplex.rayskillsystem.skill.tools.attribute
 
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
+import top.maplex.rayskillsystem.api.script.auto.InputEngine
 
+@InputEngine("AttributeManager")
 object AttributeManager {
 
     var attributes = object : AbstractAttribute {
