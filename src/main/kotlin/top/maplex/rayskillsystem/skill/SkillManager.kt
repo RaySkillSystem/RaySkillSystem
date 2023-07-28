@@ -48,8 +48,7 @@ object SkillManager {
         if (skill.getCooldown(livingEntity, level) > 0) {
             val cooldown = AttributeManager.attributes.getCooldown(livingEntity)
             val value = if (cooldown * 0.01 <= 0.3) 0.3 else cooldown * 0.01
-            val newCooldown =
-                (skill.getCooldown(livingEntity, level) - (skill.getCooldown(livingEntity, level) * value)).toLong()
+            val newCooldown = (skill.getCooldown(livingEntity, level) - (skill.getCooldown(livingEntity, level) * value)).toLong()
             CooldownAPI.set(livingEntity, "Skill_$name", newCooldown)
         }
         callBack.invoke(skill)
