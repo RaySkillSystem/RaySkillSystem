@@ -6,8 +6,10 @@ import org.bukkit.entity.Player
 import taboolib.common.platform.command.*
 import taboolib.expansion.createHelper
 import taboolib.platform.util.giveItem
+import top.maplex.rayskillsystem.RaySkillSystem
 import top.maplex.rayskillsystem.api.script.reader.ScriptReaderManager
 import top.maplex.rayskillsystem.skill.SkillManager
+import top.maplex.rayskillsystem.utils.info
 
 @CommandHeader("RaySkillSystem", aliases = ["rss"], permission = "rayskill.use")
 object Command {
@@ -69,8 +71,8 @@ object Command {
     @CommandBody(permission = "rayskill.admin")
     val reload = subCommand {
         execute<CommandSender> { sender, context, argument ->
-            ScriptReaderManager.scriptManager.reload()
-            ScriptReaderManager.readAll()
+            RaySkillSystem.reload()
+            sender.info("重载完成")
         }
     }
 

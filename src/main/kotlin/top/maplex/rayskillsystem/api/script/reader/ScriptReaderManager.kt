@@ -17,10 +17,19 @@ object ScriptReaderManager {
         ScriptManager(RaySkillSystem.plugin, "script/default.js")
     }
 
+    val loader = ArrayList<String>()
+
     @Awake(LifeCycle.ACTIVE)
     fun readAll() {
+        loader.clear()
         toConsole("开始预编译JavaScript脚本", true)
-        scriptManager.compiledScripts.forEach { t, u ->
+        scriptManager.compiledScripts.forEach { (t, u) ->
+            if (u.file.path.toString().contains("SingleLoad")) {
+                if (!loader.contains(u.file.path.toString())) {
+                    scriptManager.callLoader(t)
+                }
+                return@forEach
+            }
             scriptManager.getVariable(t, "script_type")?.let {
                 when (it as String) {
                     "skill", "Skill", "SKILL" -> {

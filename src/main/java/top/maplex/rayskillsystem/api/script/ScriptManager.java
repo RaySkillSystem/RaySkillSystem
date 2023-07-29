@@ -29,7 +29,7 @@ public class ScriptManager {
 
     private final String[] defaultFile;
 
-    private final ConcurrentHashMap<String, CompiledScript> compiledScripts = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, ScriptTempData> compiledScripts = new ConcurrentHashMap<>();
 
     private Compilable compilableEngine;
 
@@ -108,7 +108,8 @@ public class ScriptManager {
             } else if (file.getName().endsWith(".js")) {
                 InputStreamReader inputStreamReader = new InputStreamReader(Files.newInputStream(file.toPath()), StandardCharsets.UTF_8);
                 CompiledScript compiled = compilableEngine.compile(inputStreamReader);
-                compiledScripts.put(file.getName().replace(".js", ""), compiled);
+                ScriptTempData tempData = new ScriptTempData(file, compiled);
+                compiledScripts.put(file.getName().replace(".js", ""), tempData);
                 inputStreamReader.close();
             }
         }
@@ -124,7 +125,7 @@ public class ScriptManager {
         if (!file.isDirectory() && file.getName().endsWith(".js")) {
             InputStreamReader inputStreamReader = new InputStreamReader(Files.newInputStream(file.toPath()), StandardCharsets.UTF_8);
             CompiledScript compiled = compilableEngine.compile(inputStreamReader);
-            compiledScripts.put(file.getName().replace(".js", ""), compiled);
+            compiledScripts.put(file.getName().replace(".js", ""), new ScriptTempData(file, compiled));
             inputStreamReader.close();
         }
     }
@@ -138,7 +139,7 @@ public class ScriptManager {
      * @return script回参
      */
     public Object callFunction(String scriptName, String functionName, Object... args) throws Exception {
-        CompiledScript compiled = compiledScripts.get(scriptName);
+        CompiledScript compiled = compiledScripts.get(scriptName).getCompiledScript();
         if (compiled == null) {
             throw new Exception("Script not found: " + scriptName);
         }
@@ -146,8 +147,16 @@ public class ScriptManager {
         return invocable.invokeFunction(functionName, args);
     }
 
+    public void callLoader(String scriptName) throws Exception {
+        CompiledScript compiled = compiledScripts.get(scriptName).getCompiledScript();
+        if (compiled == null) {
+            throw new Exception("Script not found: " + scriptName);
+        }
+        compiled.eval();
+    }
+
     public Object getVariable(String scriptName, String variableName) throws Exception {
-        CompiledScript compiled = compiledScripts.get(scriptName);
+        CompiledScript compiled = compiledScripts.get(scriptName).getCompiledScript();
         if (compiled == null) {
             throw new Exception("Script not found: " + scriptName);
         }
@@ -156,7 +165,7 @@ public class ScriptManager {
         return bindings.get(variableName);
     }
 
-    public ConcurrentHashMap<String, CompiledScript> getCompiledScripts() {
+    public ConcurrentHashMap<String, ScriptTempData> getCompiledScripts() {
         return compiledScripts;
     }
 
