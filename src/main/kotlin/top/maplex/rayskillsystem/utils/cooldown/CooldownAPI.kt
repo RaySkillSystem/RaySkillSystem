@@ -39,7 +39,7 @@ object CooldownAPI {
         val mapKey = "${livingEntity.uniqueId}__${key}"
         val get = map.getOrDefault(mapKey, -1L)
         val nowTime = System.currentTimeMillis()
-        return get <= nowTime
+        return nowTime <= get
     }
 
     fun set(livingEntity: LivingEntity, key: String, tick: Long): Boolean {

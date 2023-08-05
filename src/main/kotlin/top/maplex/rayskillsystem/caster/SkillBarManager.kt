@@ -40,7 +40,10 @@ object SkillBarManager {
 
     fun update(player: Player, slot: Int) {
         val item = player.inventory.getItem(slot) ?: return
-        val skillName = item.getString("RaySkill.type")
+        val skillName = item.getString("RaySkill.type", "none")
+        if (skillName == "none") {
+            return
+        }
         item.apply {
             set("RaySkill.type", skillName)
             val cooldown = CooldownAPI.getTimeLong(player, "Skill_$skillName")

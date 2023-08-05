@@ -25,7 +25,6 @@ object SkillManager {
 
     fun eval(livingEntity: LivingEntity, name: String, level: Int, callBack: AbstractSkill.() -> Unit = {}): Boolean {
         val skill = getSkill(name) ?: return false
-
         if (skill.getCooldown(livingEntity, level) > 0) {
             val temp = CooldownAPI.check(livingEntity, "Skill_${name}")
             val get = skill.getCooldown(livingEntity, level)
@@ -38,9 +37,8 @@ object SkillManager {
                     }
                 }
         }
-
         if (!skill.onCondition(livingEntity, level).run original@{
-                !RaySkillCastOnConditionEvent(livingEntity, skill, level, this)
+                RaySkillCastOnConditionEvent(livingEntity, skill, level, this)
                     .callEvent<RaySkillCastOnConditionEvent>()
                     .isCondition
             }) {
@@ -48,15 +46,14 @@ object SkillManager {
         }
 
         if (!skill.onPreRun(livingEntity, level).run {
-                !RaySkillCastPreRunEvent(livingEntity, skill, level, this)
+                RaySkillCastPreRunEvent(livingEntity, skill, level, this)
                     .callEvent<RaySkillCastPreRunEvent>()
                     .canRun
             }) {
             return false
         }
-
         if (!skill.onRun(livingEntity, level).run {
-                !RaySkillCastRunEvent(livingEntity, skill, level, this)
+                RaySkillCastRunEvent(livingEntity, skill, level, this)
                     .callEvent<RaySkillCastRunEvent>()
                     .canRun
             }) {
@@ -68,9 +65,8 @@ object SkillManager {
             }
         }
         livingEntity.info("&f${livingEntity.name}&7 释放了技能 &f${skill.name}")
-
         if (!skill.onOver(livingEntity, level).run {
-                !RaySkillCastOverEvent(livingEntity, skill, level, this)
+                RaySkillCastOverEvent(livingEntity, skill, level, this)
                     .callEvent<RaySkillCastOverEvent>()
                     .canRun
             }) {
