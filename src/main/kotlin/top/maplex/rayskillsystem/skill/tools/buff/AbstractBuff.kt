@@ -7,11 +7,14 @@ import taboolib.module.chat.colored
 import taboolib.module.nms.sendToast
 import taboolib.module.nms.type.ToastBackground
 import taboolib.module.nms.type.ToastFrame
+import top.maplex.rayskillsystem.api.event.RayBuffToastShowEvent
+import top.maplex.rayskillsystem.api.event.RayBuffToastUnShowEvent
 import top.maplex.rayskillsystem.utils.buildHologramNear
 import top.maplex.rayskillsystem.utils.info
 import top.maplex.rayskillsystem.utils.intToRoman
 import top.maplex.rayskillsystem.utils.toConsole
 import java.util.*
+import java.util.concurrent.ConcurrentLinkedQueue
 
 interface AbstractBuff {
 
@@ -28,11 +31,15 @@ interface AbstractBuff {
             return
         }
         val mi = time / 20
-        target.sendToast(
-            icon,
-            "${name}${intToRoman(level)}&f (${mi}s)\n${info}".colored(),
-            ToastFrame.TASK, ToastBackground.ADVENTURE
-        )
+        val call = RayBuffToastShowEvent(target, this,time, level, true).callEvent<RayBuffToastShowEvent>()
+        if (call.show) {
+            target.sendToast(
+                icon,
+                "${name}${intToRoman(level)}&f (${mi}s)\n${info}".colored(),
+                ToastFrame.TASK, ToastBackground.ADVENTURE
+            )
+            return
+        }
         target.info("&a+ ${name}${intToRoman(level)}&f (${mi}s)")
     }
 
@@ -40,11 +47,14 @@ interface AbstractBuff {
         if (target !is Player) {
             return
         }
-        target.sendToast(
-            icon,
-            "&c失去了 &f${name} ${intToRoman(level)}&f\n${info}".colored(),
-            ToastFrame.TASK, ToastBackground.ADVENTURE
-        )
+        val call = RayBuffToastUnShowEvent(target, this, level, true).callEvent<RayBuffToastUnShowEvent>()
+        if (call.show) {
+            target.sendToast(
+                icon,
+                "&c失去了 &f${name} ${intToRoman(level)}&f\n${info}".colored(),
+                ToastFrame.TASK, ToastBackground.ADVENTURE
+            )
+        }
         target.info("&c- &f${name}${intToRoman(level)}")
     }
 

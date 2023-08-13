@@ -28,7 +28,7 @@ object Command {
                 SkillManager.skills.keys.toList()
             }
             player("target") {
-                execute<Player> { sender, context, argument ->
+                execute<CommandSender> { sender, context, argument ->
                     val player = Bukkit.getPlayer(context.player("target").uniqueId) ?: return@execute
                     SkillManager.eval(player, context["skill"], 1)
                 }
@@ -46,7 +46,7 @@ object Command {
                 SkillManager.skills.keys.toList()
             }
             player("target") {
-                execute<Player> { sender, context, argument ->
+                execute<CommandSender> { sender, context, argument ->
                     val player = Bukkit.getPlayer(context.player("target").uniqueId) ?: return@execute
                     SkillManager.getSkill(context["skill"])?.showItem(player, 1)?.let {
                         player.giveItem(it)
