@@ -21,7 +21,7 @@ taboolib {
     relocate("ink.ptms.um","top.maplex.rayskillsystem.um")
     relocate("top.maplex.rayskillsystem.taboolib.module.effect","taboolib.module.effect")
     classifier = null
-    version = "6.0.11-31"
+    version = "6.0.12-12"
 }
 
 repositories {

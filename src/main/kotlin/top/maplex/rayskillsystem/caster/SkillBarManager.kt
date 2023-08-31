@@ -6,8 +6,11 @@ import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerItemHeldEvent
+import taboolib.common.LifeCycle
+import taboolib.common.platform.Awake
 import taboolib.common.platform.Schedule
 import taboolib.common.platform.event.SubscribeEvent
+import taboolib.common.platform.function.submit
 import top.maplex.rayskillsystem.RaySkillSystem
 import top.maplex.rayskillsystem.skill.SkillManager
 import top.maplex.rayskillsystem.utils.cooldown.CooldownAPI
@@ -21,15 +24,19 @@ import java.util.*
 
 object SkillBarManager {
 
-    @Schedule(period = 5)
+    @Awake(LifeCycle.ACTIVE)
     fun schedule() {
-        Bukkit.getOnlinePlayers().forEach {
-            update(it)
+        if (enable()) {
+            submit(period = 10) {
+                Bukkit.getOnlinePlayers().forEach {
+                    update(it)
+                }
+            }
         }
     }
 
     fun enable(): Boolean {
-        return RaySkillSystem.config.getBoolean("SkillBar.enable", true)
+        return RaySkillSystem.config.getBoolean("SkillBar.enable", false)
     }
 
     fun update(player: Player) {
@@ -85,6 +92,7 @@ object SkillBarManager {
         SkillManager.eval(player, skillName, skillLevel)
     }
 
+
     @SubscribeEvent
     fun item(event: InventoryClickEvent) {
         val item = event.currentItem ?: return
@@ -93,18 +101,6 @@ object SkillBarManager {
             return
         }
         item.amount = 1
-    }
-
-    @SubscribeEvent
-    fun itemSpawn(event: SXItemSpawnEvent) {
-        val id = event.ig.key
-        if (id.contains("技能")) {
-            val now = System.currentTimeMillis()
-            val f = SimpleDateFormat("yyyy年MMM:dd日HH:mm:ss:SSS")
-            event.item.set("RaySkillInfo.getter", event.player.name)
-            event.item.set("RaySkillInfo.time", f.format(now))
-            event.item.set("RaySkillInfo.uuid", UUID.randomUUID().toString())
-        }
     }
 
 
