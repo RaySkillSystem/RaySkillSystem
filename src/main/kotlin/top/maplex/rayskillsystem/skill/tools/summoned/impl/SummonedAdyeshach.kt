@@ -23,10 +23,6 @@ open class SummonedAdyeshach(
     override var distance: Int = 10,
 ) : SummonedEntity("adyeshach", master), Follow, Limited {
 
-    val player by lazy {
-        Bukkit.getEntity(master) as? LivingEntity
-    }
-
     override fun attack(target: LivingEntity, value: Double): Boolean {
         move(target.location)
         target.damage(value, player)

@@ -1,5 +1,6 @@
 package top.maplex.rayskillsystem.skill.tools.summoned
 
+import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.entity.LivingEntity
 import java.util.UUID
@@ -12,6 +13,10 @@ open class SummonedEntity(
 
     init {
         init()
+    }
+
+    val player by lazy {
+        Bukkit.getEntity(master) as? LivingEntity
     }
 
     private fun init() {

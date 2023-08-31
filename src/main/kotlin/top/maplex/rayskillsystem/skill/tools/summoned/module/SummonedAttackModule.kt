@@ -5,7 +5,9 @@ import ink.ptms.adyeshach.core.entity.type.AdyMob
 import org.bukkit.Location
 import org.bukkit.entity.LivingEntity
 import top.maplex.rayskillsystem.api.script.auto.InputEngine
+import top.maplex.rayskillsystem.skill.tools.attribute.AttributeManager
 import top.maplex.rayskillsystem.skill.tools.mechanism.damage.Damage
+import top.maplex.rayskillsystem.skill.tools.summoned.expand.Cooperation
 import top.maplex.rayskillsystem.skill.tools.summoned.expand.Follow
 import top.maplex.rayskillsystem.skill.tools.summoned.impl.SummonedAdyeshach
 import top.maplex.rayskillsystem.utils.cooldown.CooldownAPI
@@ -13,7 +15,24 @@ import top.maplex.rayskillsystem.utils.cooldown.CooldownAPI
 @InputEngine("SummonedAttackModule")
 object SummonedAttackModule {
 
-    fun run(summoned: SummonedAdyeshach, damageDistance: Double, target: LivingEntity, value: Double): Boolean {
+
+    fun update(summoned: SummonedAdyeshach){
+        if (summoned is Cooperation){
+            summoned.player?.let { player ->
+                if (summoned.target != null) {
+                    if (summoned.target!!.isDead || summoned.getLocation().distance(summoned.target!!.location) >= 20) {
+                        summoned.target = null
+                    } else {
+                        val damag = AttributeManager.getAttribute(player, "内功伤害", 1.0)
+                        val mu = AttributeManager.getAttribute(player, "水元素", 1.0) * 0.35
+                        summoned.attack(summoned.target!!, damag + mu)
+                    }
+                }
+            }
+        }
+    }
+
+    fun attack(summoned: SummonedAdyeshach, damageDistance: Double, target: LivingEntity, value: Double): Boolean {
         val entity = summoned.entity
         val player = summoned.player ?: return false
         summoned.move(getPos(target.location))
