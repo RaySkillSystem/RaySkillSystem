@@ -43,6 +43,7 @@ open class SummonedAdyeshach(
             entity.remove()
             delete = true
         }
+        super.delete()
     }
 
     override fun getLocation(): Location {

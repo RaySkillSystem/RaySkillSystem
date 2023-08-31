@@ -20,6 +20,7 @@ taboolib {
     install("expansion-javascript")
     relocate("ink.ptms.um","top.maplex.rayskillsystem.um")
     relocate("top.maplex.rayskillsystem.taboolib.module.effect","taboolib.module.effect")
+    options("skip-kotlin-relocate", "keep-kotlin-module")
     classifier = null
     version = "6.0.12-15"
 }
@@ -47,24 +48,3 @@ configure<JavaPluginConvention> {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 // 在 build.gradle.kts 中
-
-publishing {
-    repositories {
-        maven {
-            url = uri("https://repo.tabooproject.org/repository/releases")
-            credentials {
-                username = project.findProperty("taboolibUsername").toString()
-                password = project.findProperty("taboolibPassword").toString()
-            }
-            authentication {
-                create<BasicAuthentication>("basic")
-            }
-        }
-    }
-    publications {
-        create<MavenPublication>("library") {
-            from(components["java"])
-            groupId = project.group.toString()
-        }
-    }
-}

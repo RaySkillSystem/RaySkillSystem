@@ -20,7 +20,7 @@ object SummonedManager {
 
     @Awake(LifeCycle.DISABLE)
     fun close() {
-        data.forEach {
+        data.toList().forEach {
             it.delete()
         }
     }

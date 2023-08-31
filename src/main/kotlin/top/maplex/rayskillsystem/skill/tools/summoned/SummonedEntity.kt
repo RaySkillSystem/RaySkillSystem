@@ -57,6 +57,7 @@ open class SummonedEntity(
     }
 
     open fun delete() {
+        SummonedManager.data.remove(this)
         return
     }
 
