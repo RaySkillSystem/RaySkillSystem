@@ -20,12 +20,16 @@ object CooperationManager {
 
     val data = ArrayList<Cooperation>()
 
+    fun register(cooperation: Cooperation) {
+        data.add(cooperation)
+    }
+
     @SubscribeEvent
     fun onDamage(event: EntityDamageByEntityEvent) {
-        val damager = event.damager
+        val damaged = event.damager
         val entity = event.entity as? LivingEntity ?: return
         data.forEach {
-            if (it.master == damager.uniqueId) {
+            if (it.master == damaged.uniqueId) {
                 it.target = entity
             }
         }
